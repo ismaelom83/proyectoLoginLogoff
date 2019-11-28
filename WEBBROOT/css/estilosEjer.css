@@ -60,23 +60,8 @@ footer {
 }
 
 
-li{
-    display: inline-block;
-    text-decoration: none;
-    margin-right: 15px;
 
-    margin-top: 5px;
-    padding: 5px;
-}
 
-main > li a{
-    background: aqua;
-    display: inline-block;
-    text-decoration: none;
-    margin-right: 15px; 
-    margin-top: 5px;
-    padding: 5px;
-}
 
 li a:link{
     text-decoration: none;
@@ -95,13 +80,37 @@ footer>div>a img{
     margin-right:  200px;
 }
 
-tr :first-child{
-    background-color: #ccf; 
-}
-tr{
-    background-color: #ddd; 
+.error{
+    margin: 0 auto;
+    background-color: #ff708c;
+    transition: 10s;
+    width: 10%;
+    padding: 0.5%;
+    border-radius: 10%;
 }
 
+.botones2 input{
+    width: 100%;  
+}
 
+.wrap{
+    width: 50%;
+    margin: auto;
+    max-width: 500px;
+   
+}
+
+ fieldset{
+    width: 100%;
+    border:2px solid  blue;
+    padding: 15px; 
+    border-radius: 10px;
+}
+
+.login{
+    font-size: 50px;
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
 
 
