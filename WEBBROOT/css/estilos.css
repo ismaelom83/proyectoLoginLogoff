@@ -1,0 +1,151 @@
+
+
+*{
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    font-family: 'Pacifico', cursive;
+}
+
+.tema4{
+    color: red;
+}
+
+main{
+    margin-top: 200px;
+    margin-bottom: 100px;
+}
+.navbar{
+
+    height: 100px;
+    font-size: 36px;
+}
+.nav-item{
+    margin-left: 30px;
+}
+
+.menu{
+    text-align: center;
+}
+.h1{
+    text-align: right;
+    margin-right: 300px;
+}
+.div-navegador{
+    color: #503D39;
+}
+
+
+
+p{
+    display: inline;
+    margin-left: 20px;  
+}
+hr {
+    border: 0;
+    border-top: 1px solid #999;
+    border-bottom: 1px solid #333;
+    height:0;
+}
+.mostar{
+    float: right;
+    margin-right: 20px;
+}
+
+.ejecutar{
+    float: right;    
+    margin-right: 30px;
+   
+}
+.container{
+    border-bottom:  dotted blue 2px;
+    width: 100%;
+}
+
+.text-decoration-none{
+    color: red;
+}
+.list-group{  
+    width: 100%;
+
+}
+
+.xml{
+    display: inline;
+    margin-top: 100px;
+    margin-left: 100px;
+    margin-bottom: 50px;
+    font-size: 34px;
+   
+}
+
+.json{
+      display: inline;
+    margin-top: 70px;
+    margin-left: 100px;
+    margin-bottom: 50px;
+    font-size: 34px;   
+}
+.xml a:link{
+    text-decoration: none;
+}
+.json a:link{
+    text-decoration: none;
+}
+
+.exxml{
+    
+    display: inline;
+    margin-top: 100px;
+    margin-left: 100px;
+    margin-bottom: 50px;
+    font-size: 34px;
+   
+}
+
+.exjson{
+    margin-top: 150px;
+      display: inline;
+    margin-top: 70px;
+    margin-left: 100px;
+    margin-bottom: 50px;
+    font-size: 34px;   
+}
+.exxml a:link{
+    color: green;
+    text-decoration: none;
+}
+.exjson a:link{
+    color: green;
+    text-decoration: none;
+}
+.exjson>a{
+    color: green;
+}
+.exxml>a{
+    color: green;
+}
+
+
+footer {
+    background-color: #e3f2fd;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 100px;
+    margin-top: 20px;
+    padding-bottom: 4px;
+    color:black;
+    font-size: 24px;
+    clear: both;
+}
+
+footer>div>a:link{
+    text-decoration: none;
+}
+
+footer>div>a img{
+    margin-right:  200px;
+    margin-left: 100px;
+}
