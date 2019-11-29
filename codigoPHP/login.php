@@ -124,7 +124,8 @@
                     <form action="" method="post">
                         <fieldset>
 
-                            <input type="text" name="usuario" id="usuario" class="form-control" placeholder="Usuario:" value="<?php
+                            <label for="usuario">Usuario</label><br>
+                            <input type="text" name="usuario" id="usuario" class="form-control" placeholder="Introduce Usuario:" value="<?php
                             if (isset($_POST['usuario'])) { //comprobamos si ha introducido algo en el campo y que el array de errores este a null
                                 echo $_POST['usuario']; //aunque se muestre un campo mal el valor si es correcto se mantiene.
                             }
@@ -132,7 +133,8 @@
 
                             <br>
 
-                            <input type="text" name="password" id="password" class="form-control" placeholder="Password:" value="<?php
+                            <label for="password">Password</label><br>
+                            <input type="text" name="password" id="password" class="form-control" placeholder="Introduce Password:" value="<?php
                             if (isset($_POST['password'])) { //comprobamos si ha introducido algo en el campo y que el array de errores este a null
                                 echo $_POST['password']; //aunque se muestre un campo mal el valor si es correcto se mantiene.
                             }
