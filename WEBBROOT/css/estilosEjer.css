@@ -9,6 +9,10 @@
     font-family: 'Pacifico', cursive;
 }
 
+h4{
+    display: inline-block;
+   float: left;
+}
 
 .navbar-brand{
     font-size: 36px; 

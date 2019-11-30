@@ -1,9 +1,4 @@
 
-
-
-
-
-
 <!DOCTYPE html>
 
 <html>
@@ -15,44 +10,18 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-light load-hidden"  style="background-color: #e3f2fd;">
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="../../../index.php">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../../../proyectoDWES/DWES.php">DWES</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../../../proyectoDWEC/DWEC.php">DWEC</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../../../proyectoDAW/DAW.php">DAW</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../../../proyectoDIW/DIW.php">DIW</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="../../proyectoTema5/tema5.php">VOLVER  </a>
-                    </li>
-                </ul >
-            </div>
-        </nav>
-
+       <?php require '../config/cabeceraUl.php';?>      
     </header>
     <body>
         <main>
+            <?php ;?>
             <h1 class="login">LOGIN</h1>
             <?php
             /**
               @author Ismael Heras Salvador
               @since 28/11/2019
-             */
-            session_start();
-
+             */     
+            
             require '../core/validacionFormularios.php'; //importamos la libreria de validacion  
             require '../config/constantes.php'; //requerimos las constantes para la conexion
             define('OBLIGATORIO', 1); //constante que define que un campo es obligatorio.
@@ -89,15 +58,19 @@
                     //la contraseña es paso, pero para resumirla -> sha + contraseña=concatenacion de nombre+password
                     $oPDO->bindValue(':hash', hash('sha256', $usuario . $passwd));
                     $oPDO->execute();
-                    //almacenamos todos los datos de la consulta en un array.
+                    //almacenamos todos los datos de la consulta en un array para mostar por pantalla luego los datos del registro e l asesion del usuario.
                     $resultado = $oPDO->fetch(PDO::FETCH_ASSOC);
+                    
                     //recorremos todos los campos de la base de datos y si coincide en uno ejecuta el if y nos redireciona
                     //a la pagina programa.php, si no ejecuta el else i nos dice que el usuario no es correcto
                     //que no existe el usuario.
-
                     if ($oPDO->rowCount() == 1) {
-                        //almacenamos en la sesion el nombre del usuario.
+                        session_start();
+                        //almacenamos en la sesion los campos que queramos mostrar de la base de datos del usuario
                         $_SESSION['claveUsuario'] = $resultado['DescUsuario'];
+                        $_SESSION['perfil'] = $resultado['Perfil'];
+                        $_SESSION['fecha'] = $resultado['FechaHoraUltimaConexion'];
+                        $_SESSION['ultimaConexion'] =date('d-m-Y H:i:s');
                         //con header nos redirreciona a programa.php
                         header('Location: programa.php');
                     } else {
@@ -150,7 +123,7 @@
             <?php } ?>
             <br/>
             <br/>
-
+ 
             <footer class="page-footer font-small blue load-hidden">
                 <div class="footer-copyright text-center py-3"> <a href="../../../index.php">© 2019 Copyright: Ismael Heras Salvador</a> 
                     <a href="http://daw-usgit.sauces.local/heras/proyectoTema5/tree/master"><img  src="../img/gitLab.png" alt=""></a>
