@@ -34,7 +34,7 @@
                 echo "<br>";
                 echo "<h2>Tu rol o perfil es<br></h2>";
                 if($_SESSION['perfil'] == 'usuario'){
-                    echo '<h3>Al tener un rol de usuario no tienes acceso a administarrlos registros solo a verlos y al ve rel detalle<a href="login.php">Ir a FuncionalidadUsuario</a></h3>';
+                    echo '<h3>Al tener un rol de usuario no tienes acceso a administarrlos registros solo a verlos y al ve rel detalle<a href="funcionalidadUsuario.php">Ir a FuncionalidadUsuario</a></h3>';
                 } else {
                    echo '<h3>Al tener un rol de administrador puedes insertar modificar crear exportarb he importar<a href="login.php">Ir a FuncionalidadAdministrador</a></h3>';
                 }
