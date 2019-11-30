@@ -23,6 +23,14 @@ h3 > a:link{
     color: green;
 }
 
+.verde{
+    color: green;
+}
+
+.rojo{
+    color: red;
+}
+
 .navbar-brand{
     font-size: 36px; 
 }
@@ -30,11 +38,25 @@ h3 > a:link{
     height: 100px;
     font-size: 36px;
 }
+.label1{
+    background-color: #00ffff;
+    font-size: 12px;
+    margin-left: 5px;
+     margin-bottom: 2px;
+
+}
 
 .conexionOK{
     font-size: 40px;
 }
-
+.error{
+    text-align: center;
+    display: inline-block;
+    color: #ff708c;
+    float: right;
+    width: 100%;        
+    border-radius: 10%;
+}
 .nav-item{   
     margin-left: 30px;
 
@@ -51,15 +73,6 @@ h3 > a:link{
 }
 .div-navegador{
     color: #503D39;
-}
-.card-text{
-    font-size: 18px;
-    color:black;
-}
-
-.card-title{
-    font-size: 22px;
-    color:brown;
 }
 
 footer {
@@ -93,14 +106,7 @@ footer>div>a img{
     margin-right:  200px;
 }
 
-.error{
-    margin: 0 auto;
-    background-color: #ff708c;
-    transition: 10s;
-    width: 10%;
-    padding: 0.5%;
-    border-radius: 10%;
-}
+
 
 .botones2 input{
     width: 100%;  

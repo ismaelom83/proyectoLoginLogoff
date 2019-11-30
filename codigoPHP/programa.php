@@ -26,7 +26,7 @@
                 echo '<h1>No tienes autorizacion de entrada,Debes de logearte primero</h1>';
                 echo '<h1>'.'<a href="login.php">Ir_Login</a>'.'</h1>';
                 die();
-            } else {
+            } else {//si existe la sesion mostramos los datos del usuario.
                echo '<h1>Usuario Correcto, Bienvenido</h1>';
                 //muestra por pantalla los datos que queramos del la sesion del usuario.
                 echo "<br>";

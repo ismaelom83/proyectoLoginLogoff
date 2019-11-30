@@ -14,10 +14,9 @@
     </header>
     <body>
         <main>
-            <?php; ?>
             <h1 class="login"><b>LOGIN</b></h1>
             <h3>ir a <a href="registro.php"><b>Registro</b></a></h3><br>
-             <?php
+            <?php
             /**
               @author Ismael Heras Salvador
               @since 28/11/2019
@@ -47,8 +46,12 @@
                 } catch (PDOException $excepcionPDO) {
                     die("Error al conectarse a la base de datos");
                 }
-
+                
                 try {
+                    //funcion para poner la hora en madrid
+                    date_default_timezone_set("Europe/Madrid");
+                    //almacenamos en una variable la instancicocion de datatime.
+                    $fechaNacional = date('d-m-Y H:i:s');
                     //con este query buscamos en la base de datos
                     $SQL = "SELECT * FROM Usuario WHERE CodUsuario = :user AND Password = :hash";
                     //almacenamos en una variable (objeto PDOestatement) la consulta preparada
@@ -67,10 +70,10 @@
                     if ($oPDO->rowCount() == 1) {
                         session_start();
                         //almacenamos en la sesion los campos que queramos mostrar de la base de datos del usuario
-                        $_SESSION['claveUsuario'] = $resultado['DescUsuario'];
+                        $_SESSION['claveUsuario'] = $resultado['CodUsuario'];
                         $_SESSION['perfil'] = $resultado['Perfil'];
                         $_SESSION['fecha'] = $resultado['FechaHoraUltimaConexion'];
-                        $_SESSION['ultimaConexion'] = date('d-m-Y H:i:s');
+                        $_SESSION['ultimaConexion'] = $fechaNacional;
                         //con header nos redirreciona a programa.php
                         header('Location: programa.php');
                     } else {
@@ -87,33 +90,33 @@
                     unset($miBD); //cerramos la conexion a la base de datos.
                 }
             }
-                //si se envia el formulario este desaparece.
-                ?>             
-                <div class="wrap">
-                    <form action="" method="post">
-                        <fieldset>
-                            <label for="usuario">Usuario</label><br>
-                            <input type="text" name="usuario" id="usuario" class="form-control" placeholder="Introduce Usuario:" value="<?php
-                            if (isset($_POST['usuario'])) { //comprobamos si ha introducido algo en el campo y que el array de errores este a null
-                                echo $_POST['usuario']; //aunque se muestre un campo mal el valor si es correcto se mantiene.
-                            }
-                            ?>">
-                            <br>
-                            <label for="password">Password</label><br>
-                            <input type="text" name="password" id="password" class="form-control" placeholder="Introduce Password:" value="<?php
-                            if (isset($_POST['password'])) { //comprobamos si ha introducido algo en el campo y que el array de errores este a null
-                                echo $_POST['password']; //aunque se muestre un campo mal el valor si es correcto se mantiene.
-                            }
-                            ?>">                       
-                            <br>
-                            <br>
-                            <div class="botones2">
-                                <input type="submit" name="entrar"  value="Entrar" class="form-control  btn btn-primary mb-1">
-                            </div>
-                        </fieldset>
-                    </form>
-                </div>                       
-        
+            //si se envia el formulario este desaparece.
+            ?>             
+            <div class="wrap">
+                <form action="" method="post">
+                    <fieldset>
+                        <label for="usuario">Usuario</label><br>
+                        <input type="text" name="usuario" id="usuario" class="form-control" placeholder="Introduce Usuario:" value="<?php
+                        if (isset($_POST['usuario'])) { //comprobamos si ha introducido algo en el campo y que el array de errores este a null
+                            echo $_POST['usuario']; //aunque se muestre un campo mal el valor si es correcto se mantiene.
+                        }
+                        ?>">
+                        <br>
+                        <label for="password">Password</label><br>
+                        <input type="text" name="password" id="password" class="form-control" placeholder="Introduce Password:" value="<?php
+                        if (isset($_POST['password'])) { //comprobamos si ha introducido algo en el campo y que el array de errores este a null
+                            echo $_POST['password']; //aunque se muestre un campo mal el valor si es correcto se mantiene.
+                        }
+                        ?>">                       
+                        <br>
+                        <br>
+                        <div class="botones2">
+                            <input type="submit" name="entrar"  value="Entrar" class="form-control  btn btn-primary mb-1">
+                        </div>
+                    </fieldset>
+                </form>
+            </div>                       
+
             <br/>
             <br/> 
             <footer class="page-footer font-small blue load-hidden">
