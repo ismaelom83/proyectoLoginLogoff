@@ -74,21 +74,49 @@
                     die("Error al conectarse a la base de datos");
                 }
                 try {
-
+                     //funcion para poner la hora en madrid
+                    date_default_timezone_set("Europe/Madrid");
+                    //almacenamos en una variable la instancicocion de datatime.
+                    $fechaNacional = date('d-m-Y H:i:s');
                     //genero el hash256 con la contraseña y el usuario recogidos en el formulario para luego insertarlo en la tabla con el blind.
                     $generar_password = hash('sha256', $usuario . $password);
                     //consulta preparada para ingresar valores a la tabla y añadir un nuevo registro.
                     $sql = "INSERT INTO Usuario (CodUsuario,DescUsuario,Password,Perfil)  VALUES(:CodUsuario, :DescUsuario, :Password, :Perfil)";
-                    $sentencia = $miDB->prepare($sql);
+                   $oPDO = $miDB->prepare($sql);
                     //con el bind param introducimos en la sentencia preparada el valor del campo del formulario
-                    $sentencia->bindParam(":CodUsuario", $aFormulario["CodUsuario"]);
-                    $sentencia->bindParam(":DescUsuario", $aFormulario["DescUsuario"]);
-                    $sentencia->bindParam(":Password", $generar_password);
-                    $sentencia->bindParam(":Perfil", $aFormulario["perfil"]);
-                    $sentencia->execute();
-
-
-                    echo "<h3 class='verde'>Insercion realizada con exito</h3>";
+                    $oPDO->bindParam(":CodUsuario", $aFormulario["CodUsuario"]);
+                    $oPDO->bindParam(":DescUsuario", $aFormulario["DescUsuario"]);
+                    $oPDO->bindParam(":Password", $generar_password);
+                    $oPDO->bindParam(":Perfil", $aFormulario["perfil"]);
+                    $oPDO->execute();
+                    
+                    
+                     //con este query buscamos en la base de datos
+                    $SQL = "SELECT * FROM Usuario WHERE CodUsuario = :user AND Password = :hash";
+                    //almacenamos en una variable (objeto PDOestatement) la consulta preparada
+                    $oPDO2 = $miDB->prepare($SQL);
+                    //blindeamos los parametros
+                    $oPDO2->bindValue(':user', $usuario);
+                    //la contraseña es paso, pero para resumirla -> sha + contraseña=concatenacion de nombre+password
+                    $oPDO2->bindValue(':hash', hash('sha256', $usuario . $password));
+                    $oPDO2->execute();
+                    //almacenamos todos los datos de la consulta en un array para mostar por pantalla luego los datos del registro e l asesion del usuario.
+                    $resultado = $oPDO2->fetch(PDO::FETCH_ASSOC);
+                   
+                    //recorremos todos los campos de la base de datos y si coincide en uno ejecuta el if y nos redireciona
+                    //a la pagina programa.php, si no ejecuta el else i nos dice que el usuario no es correcto
+                    //que no existe el usuario.
+                    if ($oPDO2->rowCount() == 1) {
+                        //iniciamos la sesion
+                        session_start();
+                        //almacenamos en la sesion los campos que queramos mostrar de la base de datos del usuario
+                        $_SESSION['claveUsuario'] = $resultado['CodUsuario'];
+                        $_SESSION['perfil'] = $resultado['Perfil'];
+                        $_SESSION['fecha'] = $resultado['FechaHoraUltimaConexion'];
+                        $_SESSION['ultimaConexion'] = $fechaNacional;
+                        //con header nos redirreciona a programa.php
+                         header('Location: programa.php');
+                    } 
                     //control de excepciones con la clase PDOException
                 } catch (PDOException $miExceptionPDO) {
                     if ($miExceptionPDO->getCode() == 23000 || $miExceptionPDO->getCode() == 2002) {
