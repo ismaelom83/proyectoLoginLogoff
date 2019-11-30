@@ -3,25 +3,25 @@
 
 <html>
     <head>
-        <title>Ejercicio2 Tema5</title>
+        <title>Login</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="../WEBBROOT/css/estilosEjer.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
     <header>
-       <?php require '../config/cabeceraUl.php';?>      
+        <?php require '../config/cabeceraUl.php'; ?>      
     </header>
     <body>
         <main>
-            <?php ;?>
-            <h1 class="login">LOGIN</h1>
-            <?php
+            <?php; ?>
+            <h1 class="login"><b>LOGIN</b></h1>
+            <h3>ir a <a href="registro.php"><b>Registro</b></a></h3><br>
+             <?php
             /**
               @author Ismael Heras Salvador
               @since 28/11/2019
-             */     
-            
+             */
             require '../core/validacionFormularios.php'; //importamos la libreria de validacion  
             require '../config/constantes.php'; //requerimos las constantes para la conexion
             define('OBLIGATORIO', 1); //constante que define que un campo es obligatorio.
@@ -60,7 +60,7 @@
                     $oPDO->execute();
                     //almacenamos todos los datos de la consulta en un array para mostar por pantalla luego los datos del registro e l asesion del usuario.
                     $resultado = $oPDO->fetch(PDO::FETCH_ASSOC);
-                    
+
                     //recorremos todos los campos de la base de datos y si coincide en uno ejecuta el if y nos redireciona
                     //a la pagina programa.php, si no ejecuta el else i nos dice que el usuario no es correcto
                     //que no existe el usuario.
@@ -70,14 +70,12 @@
                         $_SESSION['claveUsuario'] = $resultado['DescUsuario'];
                         $_SESSION['perfil'] = $resultado['Perfil'];
                         $_SESSION['fecha'] = $resultado['FechaHoraUltimaConexion'];
-                        $_SESSION['ultimaConexion'] =date('d-m-Y H:i:s');
+                        $_SESSION['ultimaConexion'] = date('d-m-Y H:i:s');
                         //con header nos redirreciona a programa.php
                         header('Location: programa.php');
                     } else {
                         ?>
-                        <h1>Usuario Incorrecto</h1><br>
-                        <input type="button" class="btn btn-warning" value="ReintentarLogin" onclick="location = 'login.php'">
-                        <input type="button" class="btn btn-danger" value="SalirDeLaAplicacion" onclick="location = '../../proyectoTema5/tema5.php'">
+                        <p class="login-error">Usuario o Password Incorrectos</p><br>
                         <?php
                     }
                     //cath que se ejecuta si habido un error
@@ -88,24 +86,19 @@
                 } finally {
                     unset($miBD); //cerramos la conexion a la base de datos.
                 }
-            } else {
-
+            }
                 //si se envia el formulario este desaparece.
-                ?>
-               
+                ?>             
                 <div class="wrap">
                     <form action="" method="post">
                         <fieldset>
-
                             <label for="usuario">Usuario</label><br>
                             <input type="text" name="usuario" id="usuario" class="form-control" placeholder="Introduce Usuario:" value="<?php
                             if (isset($_POST['usuario'])) { //comprobamos si ha introducido algo en el campo y que el array de errores este a null
                                 echo $_POST['usuario']; //aunque se muestre un campo mal el valor si es correcto se mantiene.
                             }
                             ?>">
-
                             <br>
-
                             <label for="password">Password</label><br>
                             <input type="text" name="password" id="password" class="form-control" placeholder="Introduce Password:" value="<?php
                             if (isset($_POST['password'])) { //comprobamos si ha introducido algo en el campo y que el array de errores este a null
@@ -120,10 +113,9 @@
                         </fieldset>
                     </form>
                 </div>                       
-            <?php } ?>
+        
             <br/>
-            <br/>
- 
+            <br/> 
             <footer class="page-footer font-small blue load-hidden">
                 <div class="footer-copyright text-center py-3"> <a href="../../../index.php">© 2019 Copyright: Ismael Heras Salvador</a> 
                     <a href="http://daw-usgit.sauces.local/heras/proyectoTema5/tree/master"><img  src="../img/gitLab.png" alt=""></a>
@@ -137,5 +129,4 @@
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
         </main>
     </body>
-
 </html>

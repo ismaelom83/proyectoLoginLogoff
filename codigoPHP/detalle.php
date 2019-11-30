@@ -9,7 +9,7 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Pagina de detalle</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="../WEBBROOT/css/estilosEjer.css">
@@ -20,8 +20,7 @@ and open the template in the editor.
            /**
              * @author Ismael Heras 
              * @since 28/11/2019
-             */
-         
+             */        
             //iniciamos la sesion.
             session_start();     
             //mostramos la variables superglobalesz

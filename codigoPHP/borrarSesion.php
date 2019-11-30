@@ -1,5 +1,6 @@
-<?php
 
+<?php
+session_start();
 
   // Borra todas las variables de sesión 
   $_SESSION = array(); 
@@ -12,6 +13,5 @@
 
   //nos redirige al login
 header('Location: login.php');
-
 ?>
 
