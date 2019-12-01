@@ -72,7 +72,7 @@
                         //almacenamos en la sesion los campos que queramos mostrar de la base de datos del usuario
                         $_SESSION['claveUsuario'] = $resultado['CodUsuario'];
                         $_SESSION['perfil'] = $resultado['Perfil'];
-                        $_SESSION['fecha'] = $resultado['FechaHoraUltimaConexion'];
+                        $_SESSION['fechaCreacion'] = $resultado['FechaHoraUltimaConexion'];
                         $_SESSION['ultimaConexion'] = $fechaNacional;
                         //con header nos redirreciona a programa.php
                         header('Location: programa.php');

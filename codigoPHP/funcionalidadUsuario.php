@@ -10,32 +10,7 @@
     </head>
     <header>
 
-        <nav class="navbar navbar-expand-sm navbar-light load-hidden"  style="background-color: #e3f2fd;">
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="../../../index.php">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../../../proyectoDWES/DWES.php">DWES</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../../../proyectoDWEC/DWEC.php">DWEC</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../../../proyectoDAW/DAW.php">DAW</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../../../proyectoDIW/DIW.php">DIW</a>
-                    </li>
-                    <div class="crud">
-                        <p >CRUD De Ismael</p>
-                    </div>
-                </ul >
-
-            </div>
-        </nav>
+      <?php require '../config/cabeceraUlUsuario.php'; ?>
 
     </header>
     <body>
@@ -54,6 +29,8 @@
                 echo '<h1>'.'<a href="login.php">Ir_Login</a>'.'</h1>';
                 die();
             } else {//si existe la sesion mostramos los datos del usuario.
+                
+                echo '<h1>Funcionalidad solo de buscar y ver detalle para rol usuario</h1>';
             require '../core/validacionFormularios.php'; //importamos la libreria de validacion  
             require '../config/constantesDepartamentos.php'; //requerimos las constantes para la conexion
             $entradaOK = true; //Inicializamos una variable que nos ayudara a controlar si todo esta correcto
@@ -143,7 +120,7 @@
             while ($campoTabla = $resultadoConsulta->fetchObject()) {
                 echo '<tr>';
                 echo "<td>" . '<b>' . $campoTabla->CodDepartamento . "</td>" . "<td>" . '</b>' . '<b>' . $campoTabla->DescDepartamento . "</td>"
-                . "<td>" . '<b>' . "<a href='mantenimientoDepartamentos/mostrarDepartamentos.php?codigo=$campoTabla->CodDepartamento'><img src='../WEBBROOT/img/ver2.png'/></a>" . "</td>";
+                . "<td>" . '<b>' . "<a href='mostrarDepartamentos.php?codigo=$campoTabla->CodDepartamento'><img src='../WEBBROOT/img/ver2.png'/></a>" . "</td>";
                 echo '</tr>';
             }
             }
