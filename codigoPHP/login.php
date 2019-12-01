@@ -14,7 +14,7 @@
     </header>
     <body>
         <main>
-            <h1 class="login"><b>LOGIN</b></h1>
+            <h1 class="login"><b>LOGI</b></h1>
             <h3>ir a <a href="registro.php"><b>Registro</b></a></h3><br>
             <?php
             /**

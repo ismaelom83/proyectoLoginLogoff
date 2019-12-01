@@ -46,7 +46,7 @@
             ?> 
             <br>
             <input type="button" class="btn btn-danger" value="CerrarSesion" onclick="location = 'borrarSesion.php'">
-            <input type="button" class="btn btn-warning" value="Detalle" onclick="location = 'detalle.php'">
+            <input type="button" class="btn btn-warning" value="Detalle" onclick="location = 'detalleFuncionalidad.php'">
             <br/>
             <br/>
             <footer class="page-footer font-small blue load-hidden">

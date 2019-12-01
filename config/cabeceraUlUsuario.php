@@ -24,7 +24,7 @@
                 <a class="nav-link" href="programa.php">VOLVER  </a>
             </li>
             <li class="nav-item">
-                <input type="button" class="btn btn-warning" value="DetalleSesion" onclick="location = 'detalle.php'">
+                <input type="button" class="btn btn-warning" value="DetalleSesion" onclick="location = 'detalleFuncionalidad.php'">
             </li>
             </li>
            
