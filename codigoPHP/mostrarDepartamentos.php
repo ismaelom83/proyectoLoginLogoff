@@ -54,11 +54,11 @@
         //puede por que no se ha logeado y por lo tanto la variable de sesion de clave de usuario no existe
         if (!isset($_SESSION['claveUsuario'])) {
             echo '<h1>No tienes autorizacion de entrada,Debes de logearte primero</h1>';
-            echo '<h1>' . '<a href="../login.php">Ir_Login</a>' . '</h1>';
+            echo '<h1>' . '<a href="login.php">Ir_Login</a>' . '</h1>';
             die();
         } else {
-            require '../../core/validacionFormularios.php'; //importamos la libreria de validacion  
-            require '../../config/constantesDepartamentos.php'; //requerimos las constantes para la conexion
+            require '../core/validacionFormularios.php'; //importamos la libreria de validacion  
+            require '../config/constantesDepartamentos.php'; //requerimos las constantes para la conexion
             try {
                echo '<h1 class="mostrar1">Mostramos todos los campos del registro</h1>';
                 echo '<br>';
