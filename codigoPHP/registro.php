@@ -35,8 +35,7 @@
             //manejo de las variables del formulario
             $aFormulario = ['CodUsuario' => null,
                 'DescUsuario' => null,
-                'password' => null,
-                'perfil' => null];
+                'password' => null];
 
             //si esta pulsado el boton de enviar entra en este condicional
             if (isset($_POST['enviar']) && $_POST['enviar'] == 'AñadirRegistro') {
@@ -44,9 +43,7 @@
                 $aErrores['CodUsuario'] = validacionFormularios::comprobarAlfaNumerico($_POST['CodUsuario'], 15, 1, 1);
                 $aErrores['DescUsuario'] = validacionFormularios::comprobarAlfaNumerico($_POST['DescUsuario'], 250, 1, 1);
                 $aErrores['password'] = validacionFormularios::comprobarAlfaNumerico($_POST['password'], 64, 1, 1);
-                 if (!isset($_POST['perfil'])) {
-                $aErrores['perfil'] = "Debe marcarse un valor";
-            } //para los radio buttons
+             
                 //foreach para recorrer el array de errores
                 foreach ($aErrores as $campo => $error) {
                     if (!is_null($error)) {
@@ -62,7 +59,7 @@
                 $usuario = $aFormulario['CodUsuario'] = $_POST['CodUsuario'];
                 $aFormulario['DescUsuario'] = $_POST['DescUsuario'];
                 $password = $aFormulario['password'] = $_POST['password'];
-                $aFormulario['perfil'] = $_POST['perfil'];
+               
 
                 try {
                     //conexion a la base de datos
@@ -81,13 +78,13 @@
                     //genero el hash256 con la contraseña y el usuario recogidos en el formulario para luego insertarlo en la tabla con el blind.
                     $generar_password = hash('sha256', $usuario . $password);
                     //consulta preparada para ingresar valores a la tabla y añadir un nuevo registro.
-                    $sql = "INSERT INTO Usuario (CodUsuario,DescUsuario,Password,Perfil)  VALUES(:CodUsuario, :DescUsuario, :Password, :Perfil)";
+                    $sql = "INSERT INTO Usuario (CodUsuario,DescUsuario,Password)  VALUES(:CodUsuario, :DescUsuario, :Password)";
                    $oPDO = $miDB->prepare($sql);
                     //con el bind param introducimos en la sentencia preparada el valor del campo del formulario
                     $oPDO->bindParam(":CodUsuario", $aFormulario["CodUsuario"]);
                     $oPDO->bindParam(":DescUsuario", $aFormulario["DescUsuario"]);
                     $oPDO->bindParam(":Password", $generar_password);
-                    $oPDO->bindParam(":Perfil", $aFormulario["perfil"]);
+                
                     $oPDO->execute();
                     
                     
@@ -171,26 +168,6 @@
                             </div>   
                         <?php } ?> 
                         <br>
-
-                        <label for="perfil">Perfil De Usuario</label><br>
-                        <input type="radio" class="" id="r1" name="perfil" value="usuario" <?php
-                        if (isset($_POST['perfil']) && $_POST['perfil'] == "Opcion 1") {
-                            echo 'checked';
-                        }
-                        ?>
-                        <label class="label1" for="perfil">Usuario</label>
-                        <input type="radio" class="" id="r2" name="perfil" value="administrador" <?php
-                        if (isset($_POST['perfil']) && $_POST['perfil'] == "Opcion 2") {
-                            echo 'checked';
-                        }?>
-                       <label for="perfil">Administrador</label>
-                           <?php if ($aErrores['perfil'] != NULL) { ?>
-                                <div class="error">
-                                    <?php echo  $aErrores['perfil']; //mensaje de error que tiene el array aErrores  ?>
-
-                                </div>   
-                            <?php } ?> 
-                        <br>
                         <br>
                         <div class="botones2">
                             <input type="submit" name="enviar" value="AñadirRegistro" class="form-control  btn btn-secondary mb-1">
@@ -202,7 +179,7 @@
             <br/> 
             <footer class="page-footer font-small blue load-hidden">
                 <div class="footer-copyright text-center py-3"> <a href="../../../index.php">© 2019 Copyright: Ismael Heras Salvador</a> 
-                    <a href="http://daw-usgit.sauces.local/heras/proyectoTema5/tree/master"><img  src="../img/gitLab.png" alt=""></a>
+                    <a href="http://daw-usgit.sauces.local/heras/ProyectoLoginLogoff/tree/developer"><img  src="../img/gitLab.png" alt=""></a>
                     <a href="https://github.com/ismaelom83/proyectoLoginLogoff"><img  src="../img/gitHub.png" alt=""></a>
                     <a href="../../proyectoTema5/tema5.php">Salir De La Aplicacion</a> 
                 </div>

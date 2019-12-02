@@ -14,7 +14,7 @@
     </header>
     <body>
         <main>
-            <h1 class="login"><b>LOGIns</b></h1>
+            <h1 class="login"><b>LOGIN</b></h1>
             <h3>ir a <a href="registro.php"><b>Registro</b></a></h3><br>
             <?php
             /**
@@ -121,7 +121,7 @@
             <br/> 
             <footer class="page-footer font-small blue load-hidden">
                 <div class="footer-copyright text-center py-3"> <a href="../../../index.php">© 2019 Copyright: Ismael Heras Salvador</a> 
-                    <a href="http://daw-usgit.sauces.local/heras/proyectoTema5/tree/master"><img  src="../img/gitLab.png" alt=""></a>
+                    <a href="http://daw-usgit.sauces.local/heras/ProyectoLoginLogoff/tree/developer"><img  src="../img/gitLab.png" alt=""></a>
                     <a href="https://github.com/ismaelom83/proyectoLoginLogoff"><img  src="../img/gitHub.png" alt=""></a>
                     <a href="../../proyectoTema5/tema5.php">Salir De La Aplicacion</a> 
                 </div>

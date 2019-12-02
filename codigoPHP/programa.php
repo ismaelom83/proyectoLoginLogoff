@@ -45,13 +45,13 @@
             }
             ?> 
             <br>
-            <input type="button" class="btn btn-danger" value="CerrarSesion" onclick="location = 'borrarSesion.php'">
+            <input type="button" class="btn btn-danger" value="SALIR" onclick="location = 'borrarSesion.php'">
             <input type="button" class="btn btn-warning" value="Detalle" onclick="location = 'detalleFuncionalidad.php'">
             <br/>
             <br/>
             <footer class="page-footer font-small blue load-hidden">
                 <div class="footer-copyright text-center py-3"> <a href="../../../index.php">© 2019 Copyright: Ismael Heras Salvador</a> 
-                    <a href="http://daw-usgit.sauces.local/heras/proyectoTema5/tree/master"><img  src="../img/gitLab.png" alt=""></a>
+                    <a href="http://daw-usgit.sauces.local/heras/ProyectoLoginLogoff/tree/developer"><img  src="../img/gitLab.png" alt=""></a>
                     <a href="https://github.com/ismaelom83/proyectoLoginLogoff"><img  src="../img/gitHub.png" alt=""></a>
                 </div>               
             </footer> 
