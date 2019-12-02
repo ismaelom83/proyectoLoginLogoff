@@ -12,6 +12,6 @@ session_start();
   session_destroy(); 
 
   //nos redirige al login
-header('Location: login.php');
+header('Location: ../../proyectoTema5/tema5.php');
 ?>
 

@@ -8,7 +8,9 @@
     box-sizing: border-box;
     font-family: 'Pacifico', cursive;
 }
-
+main{
+    margin-bottom: 100px;
+}
 h4{
     display: inline-block;
    float: left;
@@ -76,6 +78,7 @@ h3 > a:link{
 }
 
 footer {
+    margin-top: 100px;
     background-color: #e3f2fd;
     position: fixed;
     bottom: 0;

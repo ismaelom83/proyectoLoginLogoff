@@ -1,6 +1,4 @@
 
-
-
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -15,7 +13,7 @@ and open the template in the editor.
         <link rel="stylesheet" href="../WEBBROOT/css/estilosEjer.css">
     </head>
     <body>
-        <a href="login.php"><img src="../WEBBROOT/img/volver.png" alt="" style="position: fixed; bottom: 0; right: 0;"></a>
+        <a href="programa.php"><img src="../WEBBROOT/img/volver.png" alt="" style="position: fixed; bottom: 0; right: 0;"></a>
          <?php
        /**
              * @author Ismael Heras 

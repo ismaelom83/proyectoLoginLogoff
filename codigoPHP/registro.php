@@ -14,7 +14,6 @@
     </header>
     <body>
         <main>
-
             <h1 class="login"><b>REGISTRO</b></h1>
             <h3>ir a <a href="login.php"><b>Login</b></a></h3>
             <?php
@@ -40,10 +39,10 @@
             //si esta pulsado el boton de enviar entra en este condicional
             if (isset($_POST['enviar']) && $_POST['enviar'] == 'AñadirRegistro') {
                 //La posición del array de errores recibe el mensaje de error si hubiera.
-                $aErrores['CodUsuario'] = validacionFormularios::comprobarAlfaNumerico($_POST['CodUsuario'], 15, 1, 1);
-                $aErrores['DescUsuario'] = validacionFormularios::comprobarAlfaNumerico($_POST['DescUsuario'], 250, 1, 1);
-                $aErrores['password'] = validacionFormularios::comprobarAlfaNumerico($_POST['password'], 64, 1, 1);
-             
+                $aErrores['CodUsuario'] = validacionFormularios::comprobarAlfaNumerico($_POST['CodUsuario'], 15, 4, 1);
+                $aErrores['DescUsuario'] = validacionFormularios::comprobarAlfaNumerico($_POST['DescUsuario'], 250, 4, 1);
+                $aErrores['password'] = validacionFormularios::comprobarAlfaNumerico($_POST['password'], 64, 4, 1);
+
                 //foreach para recorrer el array de errores
                 foreach ($aErrores as $campo => $error) {
                     if (!is_null($error)) {
@@ -59,7 +58,7 @@
                 $usuario = $aFormulario['CodUsuario'] = $_POST['CodUsuario'];
                 $aFormulario['DescUsuario'] = $_POST['DescUsuario'];
                 $password = $aFormulario['password'] = $_POST['password'];
-               
+
 
                 try {
                     //conexion a la base de datos
@@ -71,7 +70,7 @@
                     die("Error al conectarse a la base de datos");
                 }
                 try {
-                     //funcion para poner la hora en madrid
+                    //funcion para poner la hora en madrid
                     date_default_timezone_set("Europe/Madrid");
                     //almacenamos en una variable la instancicocion de datatime.
                     $fechaNacional = date('d-m-Y H:i:s');
@@ -79,16 +78,16 @@
                     $generar_password = hash('sha256', $usuario . $password);
                     //consulta preparada para ingresar valores a la tabla y añadir un nuevo registro.
                     $sql = "INSERT INTO Usuario (CodUsuario,DescUsuario,Password)  VALUES(:CodUsuario, :DescUsuario, :Password)";
-                   $oPDO = $miDB->prepare($sql);
+                    $oPDO = $miDB->prepare($sql);
                     //con el bind param introducimos en la sentencia preparada el valor del campo del formulario
                     $oPDO->bindParam(":CodUsuario", $aFormulario["CodUsuario"]);
                     $oPDO->bindParam(":DescUsuario", $aFormulario["DescUsuario"]);
                     $oPDO->bindParam(":Password", $generar_password);
-                
+
                     $oPDO->execute();
-                    
-                    
-                     //con este query buscamos en la base de datos
+
+
+                    //con este query buscamos en la base de datos
                     $SQL = "SELECT * FROM Usuario WHERE CodUsuario = :user AND Password = :hash";
                     //almacenamos en una variable (objeto PDOestatement) la consulta preparada
                     $oPDO2 = $miDB->prepare($SQL);
@@ -99,7 +98,7 @@
                     $oPDO2->execute();
                     //almacenamos todos los datos de la consulta en un array para mostar por pantalla luego los datos del registro e l asesion del usuario.
                     $resultado = $oPDO2->fetch(PDO::FETCH_ASSOC);
-                   
+
                     //recorremos todos los campos de la base de datos y si coincide en uno ejecuta el if y nos redireciona
                     //a la pagina programa.php, si no ejecuta el else i nos dice que el usuario no es correcto
                     //que no existe el usuario.
@@ -108,12 +107,14 @@
                         session_start();
                         //almacenamos en la sesion los campos que queramos mostrar de la base de datos del usuario
                         $_SESSION['claveUsuario'] = $resultado['CodUsuario'];
+                        $_SESSION['descripcion'] = $resultado['DescUsuario'];
+                        $_SESSION['passwordSinCifrar'] = $_POST['password'];
                         $_SESSION['perfil'] = $resultado['Perfil'];
                         $_SESSION['fechaCreacion'] = $resultado['FechaHoraUltimaConexion'];
                         $_SESSION['ultimaConexion'] = $fechaNacional;
                         //con header nos redirreciona a programa.php
-                         header('Location: programa.php');
-                    } 
+                        header('Location: programa.php');
+                    }
                     //control de excepciones con la clase PDOException
                 } catch (PDOException $miExceptionPDO) {
                     if ($miExceptionPDO->getCode() == 23000 || $miExceptionPDO->getCode() == 2002) {
@@ -177,16 +178,16 @@
             </div>                     
             <br/>
             <br/> 
-            <footer class="page-footer font-small blue load-hidden">
-                <div class="footer-copyright text-center py-3"> <a href="../../../index.php">© 2019 Copyright: Ismael Heras Salvador</a> 
-                    <a href="http://daw-usgit.sauces.local/heras/ProyectoLoginLogoff/tree/developer"><img  src="../img/gitLab.png" alt=""></a>
-                    <a href="https://github.com/ismaelom83/proyectoLoginLogoff"><img  src="../img/gitHub.png" alt=""></a>
-                    <a href="../../proyectoTema5/tema5.php">Salir De La Aplicacion</a> 
-                </div>
-            </footer> 
-            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
         </main>
+        <footer class="page-footer font-small blue load-hidden">
+            <div class="footer-copyright text-center py-3"> <a href="../../../index.php">© 2019 Copyright: Ismael Heras Salvador</a> 
+                <a href="http://daw-usgit.sauces.local/heras/ProyectoLoginLogoff/tree/developer"><img  src="../img/gitLab.png" alt=""></a>
+                <a href="https://github.com/ismaelom83/proyectoLoginLogoff"><img  src="../img/gitHub.png" alt=""></a>
+                <a href="../../proyectoTema5/tema5.php">Salir De La Aplicacion</a> 
+            </div>
+        </footer> 
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     </body>
 </html>
