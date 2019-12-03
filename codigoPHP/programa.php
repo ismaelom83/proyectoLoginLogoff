@@ -31,11 +31,11 @@
                 echo "<br>";
                 echo "<h2>Hola " . '<b class="b1">' . $_SESSION['claveUsuario'] . '</b>' . " Gracia por logearte en nuestra pagina</h2>";
                 echo "<br>";
-                echo "<h2>Tu rol o perfil es<br></h2>";
+                echo "<h2>Tu rol o perfil es:<br></h2>";
                 if ($_SESSION['perfil'] == 'usuario') {
                     echo '<h3>Al tener un rol de usuario solo tienes acceso acambiar tu password y borrar la cuenta <a href="editarPerfil.php">Ir a Cambio de password</a></h3>';
                 } else {
-                    echo '<h3>Al tener un rol de administrador puedes cambiar la contraseña de tu<a href="../../MtoDepartamentosmysPDOTema4/codigoPHP/MtoDepartamentosmysPDOTema4.php">Ir a FuncionalidadAdministrador</a></h3>';
+                    echo '<h3>Al tener un rol de administrador tienes todas las funcionalidades de mantenimiento usuarios <a href="mantenimientoUsuarios.php">Ir a MantenimientoUsuarios</a></h3>';
                 }
                 echo "<br>";
                 echo "<h2>La fecha y hora de la crecion del registro es :" . '<b>' . $_SESSION['fechaCreacion'], "</h2>";
