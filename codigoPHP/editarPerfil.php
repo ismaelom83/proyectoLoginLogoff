@@ -75,7 +75,7 @@
                 $descripcion = $_SESSION['descripcion'];
                 $password = $_SESSION['passwordSinCifrar'];
                 if (isset($_POST['modificar2']) && $_POST['modificar2'] == 'EliminarCuenta') {
-                    require '../config/constantes.php'; //requerimos las constantes para la conexion
+                   
                     try {
                         //conexion a la base de datos.
                         $miDB = new PDO(MAQUINA, USUARIO, PASSWD);

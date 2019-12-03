@@ -70,7 +70,7 @@
                     if ($oPDO->rowCount() == 1) {
                         session_start();
                         //almacenamos en la sesion los campos que queramos mostrar de la base de datos del usuario
-                        $_SESSION['claveUsuario'] = $resultado['CodUsuario'];
+                        $_SESSION['usuarioDAW209AppLOginLogoff'] = $resultado['CodUsuario'];
                          $_SESSION['descripcion'] = $resultado['DescUsuario'];
                          $_SESSION['passwordSinCifrar'] = $_POST['password'];
                         $_SESSION['perfil'] = $resultado['Perfil'];

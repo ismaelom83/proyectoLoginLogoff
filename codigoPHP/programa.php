@@ -10,6 +10,7 @@
     </head>
     <header>
         <?php require '../config/cabeceraUlprograma.php'; ?>
+        
     </header>
     <body>
         <main>
