@@ -1,22 +1,5 @@
 
-<!DOCTYPE html>
-
-<html>
-    <head>
-        <title>Login</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="../WEBBROOT/css/estilosEjer.css">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    </head>
-    <header>
-        <?php require '../config/cabeceraUl.php'; ?>      
-    </header>
-    <body>
-        <main>
-            <h1 class="login"><b>LOGIN</b></h1>
-            <h3>ir a <a href="registro.php"><b>Registro</b></a></h3><br>
-            <?php
+     <?php
             /**
               @author Ismael Heras Salvador
               @since 28/11/2019
@@ -79,9 +62,9 @@
                         //con header nos redirreciona a programa.php
                         header('Location: programa.php');
                     } else {
-                        ?>
-                        <p class="login-error">Usuario o Password Incorrectos</p><br>
-                        <?php
+                    
+                    echo    '<p class="login-error">Usuario o Password Incorrectos</p><br>';
+                    
                     }
                     //cath que se ejecuta si habido un error
                 } catch (PDOException $excepcion) {
@@ -93,7 +76,23 @@
                 }
             }
             //si se envia el formulario este desaparece.
-            ?>             
+            ?>  
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title>Login</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../WEBBROOT/css/estilosEjer.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    </head>
+    <header>
+        <?php require '../config/cabeceraUl.php'; ?>      
+    </header>
+    <body>
+        <main>
+            <h1 class="login"><b>LOGIN</b></h1>
+            <h3>ir a <a href="registro.php"><b>Registro</b></a></h3><br>           
             <div class="wrap">
                 <form action="" method="post">
                     <fieldset>

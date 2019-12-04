@@ -14,4 +14,3 @@
     $mensaje = 'Bienvenido a nuestra página web'; 
   } 
 ?> 
-

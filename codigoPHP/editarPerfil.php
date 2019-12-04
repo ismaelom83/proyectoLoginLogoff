@@ -45,7 +45,7 @@
             session_start();
             //estructura de control que nos permite controlar que si alguien quiere entrar directamente a el contenido no
             //puede por que no se ha logeado y por lo tanto la variable de sesion de clave de usuario no existe
-            if (!isset($_SESSION['claveUsuario'])) {
+            if (!isset($_SESSION['usuarioDAW209AppLOginLogoff'])) {
                 echo '<h1>No tienes autorizacion de entrada,Debes de logearte primero</h1>';
                 echo '<h1>' . '<a href="login.php">Ir_Login</a>' . '</h1>';
                 die();
@@ -71,7 +71,7 @@
                 }
                 //el valor del array ahora es igual al de los campos recogidos en el formulario.
                 //ahora nuestro array de valores tiene el valor de los campos recogidos en el formulario.
-                $usuario = $_SESSION['claveUsuario'];
+                $usuario = $_SESSION['usuarioDAW209AppLOginLogoff'];
                 $descripcion = $_SESSION['descripcion'];
                 $password = $_SESSION['passwordSinCifrar'];
                 if (isset($_POST['modificar2']) && $_POST['modificar2'] == 'EliminarCuenta') {
@@ -86,7 +86,7 @@
                     }
                     try {
 
-                        $sql = "DELETE FROM Usuario WHERE CodUsuario LIKE '" . $_SESSION['claveUsuario'] . "' ";
+                        $sql = "DELETE FROM Usuario WHERE CodUsuario LIKE '" . $_SESSION['usuarioDAW209AppLOginLogoff'] . "' ";
                         $oPDO = $miDB->prepare($sql);
                         $oPDO->execute();
                         //control de excepciones con la clase PDOException

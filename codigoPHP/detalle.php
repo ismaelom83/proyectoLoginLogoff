@@ -1,20 +1,5 @@
 
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title>Pagina de detalle</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="../WEBBROOT/css/estilosEjer.css">
-    </head>
-    <body>
-        <a href="programa.php"><img src="../WEBBROOT/img/volver.png" alt="" style="position: fixed; bottom: 0; right: 0;"></a>
-         <?php
+     <?php
        /**
              * @author Ismael Heras 
              * @since 28/11/2019
@@ -23,9 +8,9 @@ and open the template in the editor.
             session_start();
             //estructura de control que nos permite controlar que si alguien quiere entrar directamente a el contenido no
             //puede por que no se ha logeado y por lo tanto la variable de sesion de clave de usuario no existe
-            if (!isset($_SESSION['claveUsuario'])) {
-                echo '<h1>No tienes autorizacion de entrada,Debes de logearte primero</h1>';
-                echo '<h1>' . '<a href="login.php">Ir_Login</a>' . '</h1>';
+            if (!isset($_SESSION['usuarioDAW209AppLOginLogoff'])) {
+                //si no tenemos permiso para entrar nos redirige al login
+               header('Location: login.php');
                 die();
             } else {//si existe la sesion mostramos los datos del usuario.
             echo 'Variables Superglobales';
@@ -50,6 +35,15 @@ and open the template in the editor.
             phpinfo();
             }
             ?>
-        
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Pagina de detalle</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../WEBBROOT/css/estilosEjer.css">
+    </head>
+    <body>
+        <a href="programa.php"><img src="../WEBBROOT/img/volver.png" alt="" style="position: fixed; bottom: 0; right: 0;"></a>      
     </body>
 </html>

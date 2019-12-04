@@ -1,6 +1,41 @@
+<?php
+//iniciamos sesion
+session_start();
+require '../config/cabeceraUlprograma.php';
+//estructura de control que nos permite controlar que si alguien quiere entrar directamente a el contenido no
+//puede por que no se ha logeado y por lo tanto la variable de sesion de clave de usuario no existe
+if (!isset($_SESSION['usuarioDAW209AppLOginLogoff'])) {
+    //si no tenemos permiso para entrar nos redirige al login
+    header('Location: login.php');
+    die();
+} else {//si existe la sesion mostramos los datos del usuario.
+ 
+    
+ if( isset( $_COOKIE['idioma'] ) ) {
+     echo '<h1 style="color:green;">'.'Estas Logeado en '.$_COOKIE['idioma'].'<h1>';
+     }else {
+         echo '<h1 style="color:green;">Estas logeado en Español</h1>'; 
+         
+     }
 
+    //muestra por pantalla los datos que queramos del la sesion del usuario.
+    echo "<br>";
+    echo "<h2>Hola " . '<b class="b1">' . $_SESSION['usuarioDAW209AppLOginLogoff'] . '</b>' . " Gracia por logearte en nuestra pagina</h2>";
+    echo "<br>";
+    echo "<h2>Tu rol o perfil es:<br></h2>";
+    if ($_SESSION['perfil'] == 'usuario') {
+        echo '<h3>Al tener un rol de usuario solo tienes acceso acambiar tu password y borrar la cuenta <a href="editarPerfil.php">Ir a Cambio de password</a></h3>';
+    } else {
+        echo '<h3>Al tener un rol de administrador tienes todas las funcionalidades de mantenimiento usuarios <a href="mantenimientoUsuarios.php">Ir a MantenimientoUsuarios</a></h3>';
+    }
+    echo "<br>";
+    echo "<h2>La fecha y hora de la crecion del registro es :" . '<b>' . $_SESSION['fechaCreacion'], "</h2>";
+    echo '<br>';
+    echo "<h2>La fecha de la ultima conexion es :" . '<b>' . $_SESSION['ultimaConexion'], "</h2>";
+}
+?> 
 <!DOCTYPE html>
-<html>
+<html lang="es">
     <head>
         <title>Programa</title>
         <meta charset="UTF-8">
@@ -8,42 +43,12 @@
         <link rel="stylesheet" href="../WEBBROOT/css/estilosEjer.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
-    <header>
-        <?php require '../config/cabeceraUlprograma.php'; ?>
-        
+    <header> 
+
     </header>
     <body>
         <main>
-            <br>
 
-            <br>        
-            <?php
-            //Iniciar una nueva sesión o reanudar la existente
-            session_start();
-            //estructura de control que nos permite controlar que si alguien quiere entrar directamente a el contenido no
-            //puede por que no se ha logeado y por lo tanto la variable de sesion de clave de usuario no existe
-            if (!isset($_SESSION['claveUsuario'])) {
-                echo '<h1>No tienes autorizacion de entrada,Debes de logearte primero</h1>';
-                echo '<h1>' . '<a href="login.php">Ir_Login</a>' . '</h1>';
-                die();
-            } else {//si existe la sesion mostramos los datos del usuario.
-                echo '<h1>Usuario Correcto, Bienvenido</h1>';
-                //muestra por pantalla los datos que queramos del la sesion del usuario.
-                echo "<br>";
-                echo "<h2>Hola " . '<b class="b1">' . $_SESSION['claveUsuario'] . '</b>' . " Gracia por logearte en nuestra pagina</h2>";
-                echo "<br>";
-                echo "<h2>Tu rol o perfil es:<br></h2>";
-                if ($_SESSION['perfil'] == 'usuario') {
-                    echo '<h3>Al tener un rol de usuario solo tienes acceso acambiar tu password y borrar la cuenta <a href="editarPerfil.php">Ir a Cambio de password</a></h3>';
-                } else {
-                    echo '<h3>Al tener un rol de administrador tienes todas las funcionalidades de mantenimiento usuarios <a href="mantenimientoUsuarios.php">Ir a MantenimientoUsuarios</a></h3>';
-                }
-                echo "<br>";
-                echo "<h2>La fecha y hora de la crecion del registro es :" . '<b>' . $_SESSION['fechaCreacion'], "</h2>";
-                echo '<br>';
-                echo "<h2>La fecha de la ultima conexion es :" . '<b>' . $_SESSION['ultimaConexion'], "</h2>";
-            }
-            ?> 
             <br>
             <input type="button" class="btn btn-danger" value="SALIR" onclick="location = 'borrarSesion.php'">
             <input type="button" class="btn btn-warning" value="Detalle" onclick="location = 'detalle.php'">

@@ -48,6 +48,13 @@ h3 > a:link{
 
 }
 
+form{
+    margin-left: 50px;
+}
+li>a>img{
+   float: right;
+}
+
 .conexionOK{
     font-size: 40px;
 }
