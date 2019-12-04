@@ -15,6 +15,9 @@
             //si el boton se ha pulsado ejecutamos el else y asignamos los valores de los imputs a nuestro array.
              echo '<h1 class="login"><b>LOGIN</b></h1>';
            echo '<h3>ir a <a href="registro.php"><b>Registro</b></a></h3><br>';
+           if (isset($_POST['salir']) && $_POST['salir'] == 'Volver') {
+               header('Location: ../../proyectoTema5/tema5.php');
+           }
             if (isset($_POST['entrar']) && $_POST['entrar'] == 'Entrar') {
 
                 //el valor del array ahora es igual al de los campos recogidos en el formulario.
@@ -118,6 +121,8 @@
                         <br>
                         <div class="botones2">
                             <input type="submit" name="entrar"  value="Entrar" class="form-control  btn btn-primary mb-1">
+                            <br><br>
+                            <input type="submit" name="salir"  value="Volver" class="form-control  btn btn-danger mb-1">
                         </div>
                     </fieldset>
                 </form>

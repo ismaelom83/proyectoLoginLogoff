@@ -20,7 +20,7 @@ if (!isset($_SESSION['usuarioDAW209AppLOginLogoff'])) {
     session_destroy();
 
     //nos redirige al login
-    header('Location: ../../proyectoTema5/tema5.php');
+    header('Location: login.php');
 }
     ?>
 
