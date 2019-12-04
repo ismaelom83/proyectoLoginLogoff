@@ -63,6 +63,10 @@
                         $_SESSION['fechaCreacion'] = $resultado['FechaHoraUltimaConexion'];
                         $_SESSION['ultimaConexion'] = $fechaNacional;
                         //con header nos redirreciona a programa.php
+                 
+                        
+                        
+                        
                         header('Location: programa.php');
                     } else {
                     

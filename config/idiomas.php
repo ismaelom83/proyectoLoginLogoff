@@ -13,10 +13,6 @@ if (!isset($_SESSION['usuarioDAW209AppLOginLogoff'])) {
         $lang = $_POST["lang"];
         setcookie('idioma', $lang, time() + 60 * 60 * 24 * 30, '/');
     }
-    if($_POST["lang"]=="English"){
-     
-    }
-
     header("Location: ../codigoPHP/programa.php");
 }
 ?>
