@@ -4,6 +4,7 @@
               @author Ismael Heras Salvador
               @since 28/11/2019
              */
+            require '../config/cabeceraUl.php'; 
             require '../core/validacionFormularios.php'; //importamos la libreria de validacion  
             require '../config/constantes.php'; //requerimos las constantes para la conexion
             define('OBLIGATORIO', 1); //constante que define que un campo es obligatorio.
@@ -12,6 +13,8 @@
             $aFormulario = ['usuario' => null,
                 'password' => null];
             //si el boton se ha pulsado ejecutamos el else y asignamos los valores de los imputs a nuestro array.
+             echo '<h1 class="login"><b>LOGIN</b></h1>';
+           echo '<h3>ir a <a href="registro.php"><b>Registro</b></a></h3><br>';
             if (isset($_POST['entrar']) && $_POST['entrar'] == 'Entrar') {
 
                 //el valor del array ahora es igual al de los campos recogidos en el formulario.
@@ -87,12 +90,11 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
     <header>
-        <?php require '../config/cabeceraUl.php'; ?>      
+           
     </header>
     <body>
         <main>
-            <h1 class="login"><b>LOGIN</b></h1>
-            <h3>ir a <a href="registro.php"><b>Registro</b></a></h3><br>           
+                   
             <div class="wrap">
                 <form action="" method="post">
                     <fieldset>

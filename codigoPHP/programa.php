@@ -10,14 +10,12 @@ if (!isset($_SESSION['usuarioDAW209AppLOginLogoff'])) {
     die();
 } else {//si existe la sesion mostramos los datos del usuario.
  
-    
+    //estructura de control para sacar por pantalla dependiendo del idioma que allamos elegido.
  if( isset( $_COOKIE['idioma'] ) ) {
-     echo '<h1 style="color:green;">'.'Estas Logeado en '.$_COOKIE['idioma'].'<h1>';
+     echo '<h1 style="color:green;">'.'Estas logeado en '." ".$_COOKIE['idioma'].'<h1>';
      }else {
-         echo '<h1 style="color:green;">Estas logeado en Español</h1>'; 
-         
+         echo '<h1 style="color:green;">Estas logeado en Español</h1>'; //si no existe la cooki lo mostramos en español por defecto       
      }
-
     //muestra por pantalla los datos que queramos del la sesion del usuario.
     echo "<br>";
     echo "<h2>Hola " . '<b class="b1">' . $_SESSION['usuarioDAW209AppLOginLogoff'] . '</b>' . " Gracia por logearte en nuestra pagina</h2>";
