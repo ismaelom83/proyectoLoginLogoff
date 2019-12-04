@@ -9,10 +9,11 @@ if (!isset($_SESSION['usuarioDAW209AppLOginLogoff'])) {
     die();
 } else {//si existe la sesion mostramos los datos del usuario.
     $lang = "es";
+    
     if (isset($_POST["lang"])) {
         $lang = $_POST["lang"];
         setcookie('idioma', $lang, time() + 60 * 60 * 24 * 30, '/');
     }
-    header("Location: ../codigoPHP/programa.php");
+    header("Location: ../codigoPHP/programa.php?codigo=$lang");
 }
 ?>

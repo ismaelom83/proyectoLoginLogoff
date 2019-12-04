@@ -8,28 +8,34 @@ if (!isset($_SESSION['usuarioDAW209AppLOginLogoff'])) {
     //si no tenemos permiso para entrar nos redirige al login
     header('Location: login.php');
     die();
-} else {//si existe la sesion mostramos los datos del usuario.
- 
+} else {//si existe la sesion mostramos los datos del usuario. 
+    //almacenamos en una variable la sesion.
+    $sesion = $_SESSION['usuarioDAW209AppLOginLogoff'];
     //estructura de control para sacar por pantalla dependiendo del idioma que allamos elegido.
- if( isset( $_COOKIE['idioma'] ) ) {
-     echo '<h1 style="color:green;">'.'Estas logeado en '." ".$_COOKIE['idioma'].'<h1>';
-     }else {
-         echo '<h1 style="color:green;">Estas logeado en Español</h1>'; //si no existe la cooki lo mostramos en español por defecto       
-     }
-    //muestra por pantalla los datos que queramos del la sesion del usuario.
+    if (isset($_COOKIE['idioma']) && $_COOKIE['idioma'] == "Español") {
+        echo '<h1 style="color:green;">'."Bienvenido  $sesion  estas logeado en Español".'</h1>'; //si no existe la cooki lo mostramos en español por defecto       
+    }
+    if (isset($_COOKIE['idioma']) && $_COOKIE['idioma'] == "Ingles") {
+        echo '<h1 style="color:green;">'."Welcome  $sesion  You are logged in English".'</h1>';
+    } if (isset($_COOKIE['idioma']) && $_COOKIE['idioma'] == "Frances") {
+         echo '<h1 style="color:green;">'."Bienvenue  $sesion  Vous êtes connecté en Français".'</h1>';
+    }if (isset($_COOKIE['idioma']) && $_COOKIE['idioma'] == "Chino") {
+         echo '<h1 style="color:green;">'."欢迎你  $sesion  您用中文登录".'</h1>';
+    }
+    
+   
     echo "<br>";
-    echo "<h2>Hola " . '<b class="b1">' . $_SESSION['usuarioDAW209AppLOginLogoff'] . '</b>' . " Gracia por logearte en nuestra pagina</h2>";
-    echo "<br>";
+     //muestra por pantalla los datos que queramos del la sesion del usuario.
     echo "<h2>Tu rol o perfil es:<br></h2>";
     if ($_SESSION['perfil'] == 'usuario') {
-        echo '<h3>Al tener un rol de usuario solo tienes acceso acambiar tu password y borrar la cuenta <a href="editarPerfil.php">Ir a Cambio de password</a></h3>';
+        echo '<p>Al tener un rol de usuario solo tienes acceso acambiar tu password y borrar la cuenta <a href="editarPerfil.php">Ir a Cambio de password</a></p>';
     } else {
-        echo '<h3>Al tener un rol de administrador tienes todas las funcionalidades de mantenimiento usuarios <a href="mantenimientoUsuarios.php">Ir a MantenimientoUsuarios</a></h3>';
+        echo '<p>Al tener un rol de administrador tienes todas las funcionalidades de mantenimiento usuarios <a href="mantenimientoUsuarios.php">Ir a MantenimientoUsuarios</a></p>';
     }
     echo "<br>";
-    echo "<h2>La fecha y hora de la crecion del registro es :" . '<b>' . $_SESSION['fechaCreacion'], "</h2>";
+    echo "<p>La fecha de la ultima conexion es:" . '<b>' . $_SESSION['ultimaConexion'], "<p>";
     echo '<br>';
-    echo "<h2>La fecha de la ultima conexion es :" . '<b>' . $_SESSION['ultimaConexion'], "</h2>";
+    echo "<p>El numero de Conexiones es :" . '<b>' . $_SESSION['numeroConexiones'], "</p>";
 }
 ?> 
 <!DOCTYPE html>
@@ -42,11 +48,9 @@ if (!isset($_SESSION['usuarioDAW209AppLOginLogoff'])) {
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
     <header> 
-
     </header>
     <body>
         <main>
-
             <br>
             <input type="button" class="btn btn-danger" value="SALIR" onclick="location = 'borrarSesion.php'">
             <input type="button" class="btn btn-warning" value="Detalle" onclick="location = 'detalle.php'">

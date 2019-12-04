@@ -18,13 +18,17 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="../../../proyectoDIW/DIW.php">DIW</a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="../../proyectoTema5/tema5.php">VOLVER</a>
-            </li>
-          
-           
+            </li>         
+                       <form action="login.php" method="post">
+    <select name="lang">
+        <option value="ninguno" selected disabled hidden >Idiomas</option>
+        <option value="Español"<?php if(isset($_COOKIE["idioma"]) == "Español" ) { echo ""; } ?>>Español</option>
+        <option value="Ingles"<?php if( isset($_COOKIE["idioma"]) == "Ingles" ) { echo ""; } ?>>Ingles</option>
+        <option value="Frances"<?php if( isset($_COOKIE["idioma"]) == "Frances" ) { echo ""; } ?>>Frances</option>
+        <option value="Chino"<?php if( isset($_COOKIE["idioma"]) == "Chino" ) { echo ""; } ?>>Chino</option>
+    </select>
+    <input type="submit" value="Selecione Idioma">
+</form>
         </ul >
     </div>
 </nav>

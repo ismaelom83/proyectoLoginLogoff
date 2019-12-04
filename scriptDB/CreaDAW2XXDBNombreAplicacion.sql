@@ -25,6 +25,7 @@
         DescUsuario varchar(250) NOT null,
         Password varchar(64) NOT null,
         Perfil enum('administrador', 'usuario') default 'usuario', -- Valor por defecto usuario
+        NumConexiones integer(11),
         FechaHoraUltimaConexion timestamp, --Revisar o cambiar a int--
         ImagenUsuario mediumblob
     );

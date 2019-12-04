@@ -118,6 +118,11 @@ footer>div>a img{
 
 
 
+
+input{
+    width: 300px;
+}
+
 .botones2 input{
     width: 100%;  
 }
