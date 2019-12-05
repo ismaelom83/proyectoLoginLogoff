@@ -4,9 +4,10 @@
   @author Ismael Heras Salvador
   @since 28/11/2019
  */
-require '../config/cabeceraUl.php';
+
 require '../core/validacionFormularios.php'; //importamos la libreria de validacion  
 require '../config/constantes.php'; //requerimos las constantes para la conexion
+require '../config/cabeceraUl.php';
 define('OBLIGATORIO', 1); //constante que define que un campo es obligatorio.
 define('NOOBLIGATORIO', 0); //constante que define que un campo NO es obligatorio.
 //manejo de las variables del formulario
@@ -18,7 +19,7 @@ if (!isset($_COOKIE['idioma'])) {
     $lang = "español";
     setcookie('idioma', $lang, time() + 60 * 60 * 24 * 30, '/');
 }
-//ponemos el valor a la cookie dependiendo del idioma que allamos introducido.
+//ponemos el valor a la cookie dependiendo del idioma que hemos introducido.
 if (isset($_POST["lang"])) {
     $lang = $_POST["lang"];
     setcookie('idioma', $lang, time() + 60 * 60 * 24 * 30, '/');
@@ -91,17 +92,17 @@ if (isset($_POST['entrar']) && $_POST['entrar'] == 'Entrar') {
             $_SESSION['descripcion'] = $resultado['DescUsuario'];
             $_SESSION['passwordSinCifrar'] = $_POST['password'];
             $_SESSION['perfil'] = $resultado['Perfil'];
-            $_SESSION['numeroConexiones'] = $resultado['NumConexiones'];
+            $_SESSION['numeroConexiones'] = $resultado['NumConexiones']+1;
             $_SESSION['ultimaConexion'] = $resultado['FechaHoraUltimaConexion'];
 
                     
-            
+            //consulta preparada para poner la hora de la ultima conexion.
             $sql = "UPDATE Usuario SET FechaHoraUltimaConexion=NULL WHERE CodUsuario=:codUsuario";
                     //guardamos en una variable la sentencia sql
                     $oPDO = $miBD->prepare($sql);
                     $oPDO->bindParam(":codUsuario", $_SESSION['usuarioDAW209AppLOginLogoff']);
                     $oPDO->execute();
-                    
+                    //consulta preparada para saber el numero de conexiones y lo almacenamos en la base datos.
                      $sql = "UPDATE Usuario SET NumConexiones=NumConexiones+1 WHERE CodUsuario=:codUsuario";
                     //guardamos en una variable la sentencia sql
                     $oPDO = $miBD->prepare($sql);

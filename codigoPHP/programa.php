@@ -33,7 +33,7 @@ if (!isset($_SESSION['usuarioDAW209AppLOginLogoff'])) {
         echo '<p>Al tener un rol de administrador tienes todas las funcionalidades de mantenimiento usuarios <a href="mantenimientoUsuarios.php">Ir a MantenimientoUsuarios</a></p>';
     }
     echo "<br>";
-    echo "<p>La fecha de la ultima conexion es:" . '<b>' . $_SESSION['ultimaConexion'], "<p>";
+    echo "<p>La fecha y Hora de la ultima conexion es:" . '<b>' . $_SESSION['ultimaConexion'], "<p>";
     echo '<br>';
     echo "<p>El numero de Conexiones es :" . '<b>' . $_SESSION['numeroConexiones'], "</p>";
 }
