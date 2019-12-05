@@ -16,13 +16,14 @@ $aFormulario = ['usuario' => null,
 
 //si no existe la cookie la creamos en español por defecto.
 if (!isset($_COOKIE['idioma'])) {
-    $lang = "español";
-    setcookie('idioma', $lang, time() + 60 * 60 * 24 * 30, '/');
+    $lang = "Español";
+    setcookie('idioma', $lang, time() + 60 * 60 * 24 * 30);
+    header("Location: login.php");
 }
 //ponemos el valor a la cookie dependiendo del idioma que hemos introducido.
 if (isset($_POST["lang"])) {
     $lang = $_POST["lang"];
-    setcookie('idioma', $lang, time() + 60 * 60 * 24 * 30, '/');
+    setcookie('idioma', $lang, time() + 60 * 60 * 24 * 30);
     header("Location: login.php");
 }
 
