@@ -77,12 +77,14 @@
                     //genero el hash256 con la contraseña y el usuario recogidos en el formulario para luego insertarlo en la tabla con el blind.
                     $generar_password = hash('sha256', $usuario . $password);
                     //consulta preparada para ingresar valores a la tabla y añadir un nuevo registro.
-                    $sql = "INSERT INTO Usuario (CodUsuario,DescUsuario,Password)  VALUES(:CodUsuario, :DescUsuario, :Password)";
+                    $conexiones=0;
+                    $sql = "INSERT INTO Usuario (CodUsuario,DescUsuario,Password,NumConexiones)  VALUES(:CodUsuario, :DescUsuario, :Password, :conexiones)";
                     $oPDO = $miDB->prepare($sql);
                     //con el bind param introducimos en la sentencia preparada el valor del campo del formulario
                     $oPDO->bindParam(":CodUsuario", $aFormulario["CodUsuario"]);
                     $oPDO->bindParam(":DescUsuario", $aFormulario["DescUsuario"]);
                     $oPDO->bindParam(":Password", $generar_password);
+                    $oPDO->bindParam(":conexiones", $conexiones);
 
                     $oPDO->execute();
 
@@ -110,8 +112,22 @@
                         $_SESSION['descripcion'] = $resultado['DescUsuario'];
                         $_SESSION['passwordSinCifrar'] = $_POST['password'];
                         $_SESSION['perfil'] = $resultado['Perfil'];
-                        $_SESSION['fechaCreacion'] = $resultado['FechaHoraUltimaConexion'];
-                        $_SESSION['ultimaConexion'] = $fechaNacional;
+                        $_SESSION['numeroConexiones'] = $resultado['NumConexiones']+1;
+                        $_SESSION['ultimaConexion'] = $resultado['FechaHoraUltimaConexion'];
+                        
+                        //consulta preparada para poner la hora de la ultima conexion.
+            $sql = "UPDATE Usuario SET FechaHoraUltimaConexion=NULL WHERE CodUsuario=:codUsuario";
+                    //guardamos en una variable la sentencia sql
+                    $oPDO = $miDB->prepare($sql);
+                    $oPDO->bindParam(":codUsuario", $_SESSION['usuarioDAW209AppLOginLogoff']);
+                    $oPDO->execute();
+                    //consulta preparada para saber el numero de conexiones y lo almacenamos en la base datos.
+                     $sql = "UPDATE Usuario SET NumConexiones=NumConexiones+1 WHERE CodUsuario=:codUsuario";
+                    //guardamos en una variable la sentencia sql
+                    $oPDO = $miDB->prepare($sql);
+                    $oPDO->bindParam(":codUsuario", $_SESSION['usuarioDAW209AppLOginLogoff']);
+                    $oPDO->execute();
+                        
                         //con header nos redirreciona a programa.php
                         header('Location: programa.php');
                     }
