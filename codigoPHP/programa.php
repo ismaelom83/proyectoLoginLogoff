@@ -28,7 +28,7 @@ if (!isset($_SESSION['usuarioDAW209AppLOginLogoff'])) {
      //muestra por pantalla los datos que queramos del la sesion del usuario.
     echo "<h2>Tu rol o perfil es:<br></h2>";
     if ($_SESSION['perfil'] == 'usuario') {
-        echo '<p>Al tener un rol de usuario solo tienes acceso acambiar tu password y borrar la cuenta <a href="editarPerfil.php">Ir a Cambio de password</a></p>';
+        echo '<p>Al tener un rol de usuario solo tienes acceso acambiar tu password y borrar la cuenta <a href="editarPerfil.php">Ir a Editar Perfil</a></p>';
     } else {
         echo '<p>Al tener un rol de administrador tienes todas las funcionalidades de mantenimiento usuarios <a href="mantenimientoUsuarios.php">Ir a MantenimientoUsuarios</a></p>';
     }

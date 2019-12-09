@@ -1,4 +1,72 @@
 
+<?php
+/**
+  @author Ismael Heras Salvador
+  @since 2/12/2019
+ */
+//Iniciar una nueva sesión o reanudar la existente
+session_start();
+//estructura de control que nos permite controlar que si alguien quiere entrar directamente a el contenido no
+//puede por que no se ha logeado y por lo tanto la variable de sesion de clave de usuario no existe
+if (!isset($_SESSION['usuarioDAW209AppLOginLogoff'])) {
+    //si no tenemos permiso para entrar nos redirige al login
+    header('Location: login.php');
+    die();
+} else {//si existe la sesion mostramos los datos del usuario.
+    require '../config/cabeceraUlUsuario.php'; //requerimos la cabecera 
+     require '../core/validacionFormularios.php'; //importamos la libreria de validacion  
+    require '../config/constantes.php'; //requerimos las constantes para la conexion
+    echo '<h2>Estos son los datos del registro<br>que quieres cambiar la Password o borrar</h2>';
+    echo '<br>';
+   
+    define('OBLIGATORIO', 1); //constante que define que un campo es obligatorio.
+    define('NOOBLIGATORIO', 0); //constante que define que un campo NO es obligatorio.
+    $entradaOK = true; //Inicializamos una variable que nos ayudara a controlar si todo esta correcto
+    //manejo del control de errores.
+    $aErrores = ['CodUsuario' => null,
+        'DescUsuario' => null,
+        'password' => null];
+    //manejo de las variables del formulario
+    $aFormulario = ['CodUsuario' => null,
+        'DescUsuario' => null,
+        'password' => null];
+    //
+    if (isset($_POST['modificar']) && $_POST['modificar'] == 'cambiarPassword') {
+        header('Location: cambiarPassword.php');
+    }
+    //el valor del array ahora es igual al de los campos recogidos en el formulario.
+    //ahora nuestro array de valores tiene el valor de los campos recogidos en el formulario.
+    $usuario = $_SESSION['usuarioDAW209AppLOginLogoff'];
+    $descripcion = $_SESSION['descripcion'];
+    $password = $_SESSION['passwordSinCifrar'];
+    if (isset($_POST['modificar2']) && $_POST['modificar2'] == 'EliminarCuenta') {
+
+        try {
+            //conexion a la base de datos.
+            $miDB = new PDO(MAQUINA, USUARIO, PASSWD);
+            $miDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            //try cacth por si falla la conexion.
+        } catch (PDOException $excepcionPDO) {
+            die("Error al conectarse a la base de datos");
+        }
+        try {
+
+            $sql = "DELETE FROM Usuario WHERE CodUsuario LIKE '" . $_SESSION['usuarioDAW209AppLOginLogoff'] . "' ";
+            $oPDO = $miDB->prepare($sql);
+            $oPDO->execute();
+            //control de excepciones con la clase PDOException
+        } catch (PDOException $miExceptionPDO) {
+            if ($miExceptionPDO->getCode() == 23000 || $miExceptionPDO->getCode() == 2002) {
+                echo "<h3 class='rojo'>Error, no existe el registro</h3>";
+            }
+        } finally {
+            //cierre de conexion
+            unset($miDB);
+        }
+        header('Location: borrarSesion.php');
+    }
+}
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -10,98 +78,10 @@
     </head>
     <header>
 
-        <nav class="navbar navbar-expand-sm navbar-light load-hidden"  style="background-color: #e3f2fd;">
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="../../../index.php">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../../../proyectoDWES/DWES.php">DWES</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../../../proyectoDWEC/DWEC.php">DWEC</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../../../proyectoDAW/DAW.php">DAW</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../../../proyectoDIW/DIW.php">DIW</a>
-                    </li>                       
-                </ul >
-            </div>
-        </nav>
     </header>
     <body>           
         <main>
 
-            <?php
-            /**
-              @author Ismael Heras Salvador
-              @since 2/12/2019
-             */
-            //Iniciar una nueva sesión o reanudar la existente
-            session_start();
-            //estructura de control que nos permite controlar que si alguien quiere entrar directamente a el contenido no
-            //puede por que no se ha logeado y por lo tanto la variable de sesion de clave de usuario no existe
-            if (!isset($_SESSION['usuarioDAW209AppLOginLogoff'])) {
-                echo '<h1>No tienes autorizacion de entrada,Debes de logearte primero</h1>';
-                echo '<h1>' . '<a href="login.php">Ir_Login</a>' . '</h1>';
-                die();
-            } else {//si existe la sesion mostramos los datos del usuario.
-                echo '<h2>Estos son los datos del registro<br>que quieres cambiar la Password o borrar</h2>';
-                echo '<br>';
-                require '../core/validacionFormularios.php'; //importamos la libreria de validacion  
-                require '../config/constantes.php'; //requerimos las constantes para la conexion
-                define('OBLIGATORIO', 1); //constante que define que un campo es obligatorio.
-                define('NOOBLIGATORIO', 0); //constante que define que un campo NO es obligatorio.
-                $entradaOK = true; //Inicializamos una variable que nos ayudara a controlar si todo esta correcto
-                //manejo del control de errores.
-                $aErrores = ['CodUsuario' => null,
-                    'DescUsuario' => null,
-                    'password' => null];
-                //manejo de las variables del formulario
-                $aFormulario = ['CodUsuario' => null,
-                    'DescUsuario' => null,
-                    'password' => null];
-                //
-                if (isset($_POST['modificar']) && $_POST['modificar'] == 'cambiarPassword') {
-                    header('Location: cambiarPassword.php');
-                }
-                //el valor del array ahora es igual al de los campos recogidos en el formulario.
-                //ahora nuestro array de valores tiene el valor de los campos recogidos en el formulario.
-                $usuario = $_SESSION['usuarioDAW209AppLOginLogoff'];
-                $descripcion = $_SESSION['descripcion'];
-                $password = $_SESSION['passwordSinCifrar'];
-                if (isset($_POST['modificar2']) && $_POST['modificar2'] == 'EliminarCuenta') {
-                   
-                    try {
-                        //conexion a la base de datos.
-                        $miDB = new PDO(MAQUINA, USUARIO, PASSWD);
-                        $miDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                        //try cacth por si falla la conexion.
-                    } catch (PDOException $excepcionPDO) {
-                        die("Error al conectarse a la base de datos");
-                    }
-                    try {
-
-                        $sql = "DELETE FROM Usuario WHERE CodUsuario LIKE '" . $_SESSION['usuarioDAW209AppLOginLogoff'] . "' ";
-                        $oPDO = $miDB->prepare($sql);
-                        $oPDO->execute();
-                        //control de excepciones con la clase PDOException
-                    } catch (PDOException $miExceptionPDO) {
-                        if ($miExceptionPDO->getCode() == 23000 || $miExceptionPDO->getCode() == 2002) {
-                            echo "<h3 class='rojo'>Error, no existe el registro</h3>";
-                        }
-                    } finally {
-                        //cierre de conexion
-                        unset($miDB);
-                    }
-                    header('Location: borrarSesion.php');
-                }
-            }
-            ?>
             <div class="wrap">
                 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                     <fieldset>
