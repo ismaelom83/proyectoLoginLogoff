@@ -34,7 +34,6 @@ if (!isset($_SESSION['usuarioDAW209AppLOginLogoff'])) {
         echo '<div>';
        echo '<a  href="mantenimientoUsuarios.php">Ir a MantenimientoUsuarios</a>';
        echo '<br>';
-        echo  '<a href="../../MtoDepartamentosmysPDOTema4/codigoPHP/MtoDepartamentosmysPDOTema4.php">Ir a MantenimientoDepartamentos</a>';
         echo '</div>';
     }
     echo "<br>";
