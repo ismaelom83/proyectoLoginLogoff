@@ -13,9 +13,8 @@ $aFormulario = ['usuario' => null,
     'password' => null];
 
 //----------------------cookies-------------------------------------------------
-
 //si no existe la cookie la creamos en español por defecto.
-if (!isset($_COOKIE['idioma'])){
+if (!isset($_COOKIE['idioma'])) {
     $idiomaCookie = "castellano";
     setcookie('idioma', $idiomaCookie, time() + 60 * 60 * 24 * 30);
     header("Location: login.php");
@@ -23,8 +22,8 @@ if (!isset($_COOKIE['idioma'])){
 //ponemos el valor a la cookie dependiendo del idioma que hemos introducido.
 if (isset($_GET["idioma"])) {
     $idiomaCookie = $_GET["idioma"];
-    setcookie('idioma', $idiomaCookie, time() + 60 * 60 * 24 * 30);//creamos la cooki con una duracionde 30 dias
-    header("Location: login.php");//recargamos la pagina.
+    setcookie('idioma', $idiomaCookie, time() + 60 * 60 * 24 * 30); //creamos la cooki con una duracionde 30 dias
+    header("Location: login.php"); //recargamos la pagina.
 }
 
 
@@ -73,16 +72,18 @@ if (isset($_POST['entrar']) && $_POST['entrar'] == 'Entrar') {
             $_SESSION['usuarioDAW209AppLOginLogoff'] = $resultado['CodUsuario'];
             $_SESSION['descripcionDAW209AppLOginLogoff'] = $resultado['DescUsuario'];
             $_SESSION['perfilDAW209AppLOginLogoff'] = $resultado['Perfil'];
-            $_SESSION['numeroConexiones'] = $resultado['NumConexiones']+1;
-            $_SESSION['ultimaConexion'] = $resultado['FechaHoraUltimaConexion'];
-
-
-            //consulta preparada para poner la hora de la ultima conexion.
-            $sql = "UPDATE Usuario SET FechaHoraUltimaConexion=NULL WHERE CodUsuario=:codUsuario";
-            //guardamos en una variable la sentencia sql
-            $oPDO = $miBD->prepare($sql);
-            $oPDO->bindParam(":codUsuario", $_SESSION['usuarioDAW209AppLOginLogoff']);
-            $oPDO->execute();
+            $_SESSION['numeroConexiones'] = $resultado['NumConexiones'] + 1;
+            
+            if ($_SESSION['numeroConexiones'] > 1) {//si el numero de conexiones es mayor de una entonces mostraremos la hora de la ultima conexion si no no podriamos al ser la primera
+                $_SESSION['ultimaConexion'] = $resultado['FechaHoraUltimaConexion'];
+                //consulta preparada para poner la hora de la ultima conexion.
+                    //consulta preparada para poner la hora de la ultima conexion.
+                    $sql = "UPDATE Usuario SET FechaHoraUltimaConexion=NULL WHERE CodUsuario=:codUsuario";
+                    //guardamos en una variable la sentencia sql
+                    $oPDO = $miBD->prepare($sql);
+                    $oPDO->bindParam(":codUsuario", $_SESSION['usuarioDAW209AppLOginLogoff']);
+                    $oPDO->execute();         
+            }
             //consulta preparada para saber el numero de conexiones y lo almacenamos en la base datos.
             $sql = "UPDATE Usuario SET NumConexiones=NumConexiones+1 WHERE CodUsuario=:codUsuario";
             //guardamos en una variable la sentencia sql
@@ -91,7 +92,7 @@ if (isset($_POST['entrar']) && $_POST['entrar'] == 'Entrar') {
             $oPDO->execute();
             //con header nos redirreciona a programa.php        
             header('Location: codigoPHP/programa.php');
-        } 
+        }
         //cath que se ejecuta si habido un error
     } catch (PDOException $excepcion) {
         echo "<h1>Se ha producido un error</h1>";
@@ -144,20 +145,18 @@ if (isset($_POST['entrar']) && $_POST['entrar'] == 'Entrar') {
     <body>
         <main> 
             <?php
-            //estructura de control para sacar por pantalla dependiendo del idioma que allamos elegido.
+//estructura de control para sacar por pantalla dependiendo del idioma que allamos elegido.
             if (isset($_COOKIE['idioma']) && $_COOKIE['idioma'] == "castellano") {
                 echo '<h1 class="login"><b>Inicio Sesion</b></h1>';
-                
             }
             if (isset($_COOKIE['idioma']) && $_COOKIE['idioma'] == "english") {
                 echo '<h1 class="login"><b>Log In</b></h1>';
-              
             }
 
             if (isset($_POST['salir']) && $_POST['salir'] == 'Volver') {
                 header('Location: ../../proyectoTema5/tema5.php');
             }
-            if(isset($_POST['entrar']) && $_POST['entrar'] == 'Entrar'){
+            if (isset($_POST['entrar']) && $_POST['entrar'] == 'Entrar') {
                 echo '<p class="login-error">Usuario o Password Incorrectos</p><br>';
             }
             ?>

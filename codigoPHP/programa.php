@@ -53,7 +53,7 @@ if (isset($_POST['detalle'])) {//si pulsamos detalle nos lleva al detalle
             //estructura de control que nos indica que si es la primera conexion nos mostrara un mesaje y no mostrara la fecha de la ultica
             //conexion pero si no es la primera si nos muestra que numero de veces nos hemos conectado y la fecha de la ultima conexion. 
             if ($_SESSION['numeroConexiones'] == 1) {
-                echo "<h3>" . $_SESSION['usuarioDAW209AppLOginLogoff'] . ' Esta es la primera vez que te conectas' .'<br>'. 'No tienes fecha de ultima conexion' ."</h3>";
+                echo "<h3>" . $_SESSION['usuarioDAW209AppLOginLogoff'] . ' Esta es la primera vez que te conectas' .'<br>'. 'No tienes fecha de ultima conexion'."</h3>";
             } else {
                 echo "<p>" . $_SESSION['usuarioDAW209AppLOginLogoff'] . " Esta es la " . '<b>' . $_SESSION['numeroConexiones'] . "º vez que te conectas" . "</p>";
                 echo "<br>";
