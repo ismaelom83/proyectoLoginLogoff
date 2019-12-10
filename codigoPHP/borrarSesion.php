@@ -9,7 +9,7 @@ if (!isset($_SESSION['usuarioDAW209AppLOginLogoff'])) {
       //si no tenemos permiso para entrar nos redirige al login
                header('Location: login.php');
     die();
-} else {//si existe la sesion mostramos los datos del usuario.
+} 
     // Borra todas las variables de sesión 
     $_SESSION = array();
     //Borra la cookie que almacena la sesión 
@@ -21,6 +21,6 @@ if (!isset($_SESSION['usuarioDAW209AppLOginLogoff'])) {
 
     //nos redirige al login
     header('Location: login.php');
-}
+
     ?>
 

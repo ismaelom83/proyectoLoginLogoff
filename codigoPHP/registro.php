@@ -21,6 +21,7 @@
               @author Ismael Heras Salvador
               @since 30/11/2019
              */
+            
             require '../core/validacionFormularios.php'; //importamos la libreria de validacion  
             require '../config/constantes.php'; //requerimos las constantes para la conexion
             define('OBLIGATORIO', 1); //constante que define que un campo es obligatorio.

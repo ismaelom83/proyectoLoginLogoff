@@ -8,7 +8,7 @@ if (!isset($_SESSION['usuarioDAW209AppLOginLogoff'])) {
     //si no tenemos permiso para entrar nos redirige al login
     header('Location: login.php');
     die();
-} else {//si existe la sesion mostramos los datos del usuario. 
+}
     //almacenamos en una variable la sesion.
     $sesion = $_SESSION['usuarioDAW209AppLOginLogoff'];
     //estructura de control para sacar por pantalla dependiendo del idioma que allamos elegido.
@@ -28,15 +28,20 @@ if (!isset($_SESSION['usuarioDAW209AppLOginLogoff'])) {
      //muestra por pantalla los datos que queramos del la sesion del usuario.
     echo "<h2>Tu rol o perfil es:<br></h2>";
     if ($_SESSION['perfil'] == 'usuario') {
-        echo '<p>Al tener un rol de usuario solo tienes acceso acambiar tu password y borrar la cuenta <a href="editarPerfil.php">Ir a Editar Perfil</a></p>';
+        echo '<p>Al tener un rol de usuario solo tienes acceso a cambiar tu perfil y borrar la cuenta <a href="editarPerfil.php">Ir a Editar Perfil</a></p>';
     } else {
-        echo '<p>Al tener un rol de administrador tienes todas las funcionalidades de mantenimiento usuarios <a href="mantenimientoUsuarios.php">Ir a MantenimientoUsuarios</a></p>';
+        echo '<p>Al tener un rol de administrador tienes todas las funcionalidades de mantenimiento usuarios y departamentos</p>';
+        echo '<div>';
+       echo '<a  href="mantenimientoUsuarios.php">Ir a MantenimientoUsuarios</a>';
+       echo '<br>';
+        echo  '<a href="../../MtoDepartamentosmysPDOTema4/codigoPHP/MtoDepartamentosmysPDOTema4.php">Ir a MantenimientoDepartamentos</a>';
+        echo '</div>';
     }
     echo "<br>";
     echo "<p>La fecha y Hora de la ultima conexion es:" . '<b>' . $_SESSION['ultimaConexion'], "<p>";
     echo '<br>';
     echo "<p>El numero de Conexiones es :" . '<b>' . $_SESSION['numeroConexiones'], "</p>";
-}
+
 ?> 
 <!DOCTYPE html>
 <html lang="es">
@@ -52,7 +57,7 @@ if (!isset($_SESSION['usuarioDAW209AppLOginLogoff'])) {
     <body>
         <main>
             <br>
-            <input type="button" class="btn btn-danger" value="SALIR" onclick="location = 'borrarSesion.php'">
+            <input type="button" class="btn btn-danger" value="Cerrar Sesion" onclick="location = 'borrarSesion.php'">
             <input type="button" class="btn btn-warning" value="Detalle" onclick="location = 'detalle.php'">
             <br/>
             <br/>

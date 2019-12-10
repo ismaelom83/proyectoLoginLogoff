@@ -12,7 +12,7 @@
                 //si no tenemos permiso para entrar nos redirige al login
                header('Location: login.php');
                 die();
-            } else {//si existe la sesion mostramos los datos del usuario.
+            } 
             echo 'Variables Superglobales';
             echo '<br>';
             echo '<div style="margin-left: 30px";>';
@@ -33,7 +33,7 @@
            echo '</div>';
             
             phpinfo();
-            }
+            
             ?>
 <!DOCTYPE html>
 <html>

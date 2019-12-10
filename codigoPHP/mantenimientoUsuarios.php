@@ -1,20 +1,5 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Ejercicio MtoUsuarios</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="../WEBBROOT/css/funcionalidadUsuarios.css">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    </head>
-    <header>
 
-        <?php require '../config/cabeceraUlUsuario.php'; ?>  
-
-    </header>
-    <body>
-        <main>
-            <?php
+  <?php
             /**
               @author Ismael Heras Salvador
               @since 2/12/2019
@@ -27,9 +12,10 @@
                 //si no tenemos permiso para entrar nos redirige al login
                 header('Location: login.php');
                 die();
-            } else {//si existe la sesion mostramos los datos del usuario.
+            } 
                 require '../core/validacionFormularios.php'; //importamos la libreria de validacion  
                 require '../config/constantes.php'; //requerimos las constantes para la conexion
+                require '../config/cabeceraUlUsuario.php'; 
                 $entradaOK = true; //Inicializamos una variable que nos ayudara a controlar si todo esta correcto
                 //manejo del control de errores.
                 //manejo de las variables del formulario
@@ -43,28 +29,7 @@
                 } catch (PDOException $excepcionPDO) {
                     die("Error al conectarse a la base de datos");
                 }
-                ?>
 
-                <!-enlaces a añadir usuario exportar he importar->
-                <li><a href="registro.php">AÑADIR</a></li>
-                <li><a href="#">EXPORTAR</a></li>
-                <li><a href="#">IMPORTAR</a></li> 
-                <br>
-                <br>
-                <!-formulario para buscar la descripcion de el Usuario->
-                <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-                    <fieldset>                  
-                        BUSCAR DEPARTAMENTOS: 
-                        <input type="text" name="DescUsuarios" placeholder="Introduce coincidencia con descripcion de usuarios" id="buscar" value="<?php
-                        if (isset($_POST['DescUsuarios'])) {
-                            echo $_POST['DescUsuarios'];
-                        }
-                        ?>"> 
-                        <input type="submit" name="enviar" value="Buscar" id="enviar">       
-
-                    </fieldset>
-                </form> 
-                <?php
                 if (isset($_POST['DescUsuarios'])) {//si esta definida la variable i no es null decimos que nuestro array es igual al valor que recogemos en el campo buscar 
                     $aFormulario ['DescUsuarios'] = $_POST['DescUsuarios'];
                 }
@@ -129,10 +94,40 @@
                     "<td>" . '<b>' . "<a href='#'><img src='../WEBBROOT/img/flecha-hacia-arriba.png'/></a>" . "</td>";
                     echo '</tr>';
                 }
-            }
             ?> 
-            <br/>
-            <br/>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ejercicio MtoUsuarios</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../WEBBROOT/css/funcionalidadUsuarios.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    </head>
+    <header>
+    </header>
+    <body>
+        <main>
+            <!-enlaces a añadir usuario exportar he importar->
+                <li><a href="registro.php">AÑADIR</a></li>
+                <li><a href="#">EXPORTAR</a></li>
+                <li><a href="#">IMPORTAR</a></li> 
+                <br>
+                <br>
+                 
+                <!-formulario para buscar la descripcion de el Usuario->
+                <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                    <fieldset>                  
+                        BUSCAR DEPARTAMENTOS: 
+                        <input type="text" name="DescUsuarios" placeholder="Introduce coincidencia con descripcion de usuarios" id="buscar" value="<?php
+                        if (isset($_POST['DescUsuarios'])) {
+                            echo $_POST['DescUsuarios'];
+                        }
+                        ?>"> 
+                        <input type="submit" name="enviar" value="Buscar" id="enviar">       
+
+                    </fieldset>
+                </form> 
         </main>
         <footer class="page-footer font-small blue load-hidden">
             <div class="footer-copyright text-center py-3"> <a href="../../../index.php">© 2019 Copyright: Ismael Heras Salvador</a> 

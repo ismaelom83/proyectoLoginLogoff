@@ -21,7 +21,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="programa.php">VOLVER</a>
+                <a class="volver" href="borrarSesion.php">Cerrar Sesion</a>
             </li>
                      
            

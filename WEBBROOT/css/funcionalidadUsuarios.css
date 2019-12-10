@@ -9,7 +9,7 @@
     font-family: 'Pacifico', cursive;
 }
 main{
-    margin-bottom: 100px;
+    margin-bottom: 200px;
 }
 .crud{
     margin-left: 100px;
@@ -66,6 +66,10 @@ table{
 #buscar{
    display:inline-block;
     
+}
+
+main{
+   margin-bottom: 50px;
 }
 
 

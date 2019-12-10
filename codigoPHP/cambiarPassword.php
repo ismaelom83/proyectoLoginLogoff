@@ -11,7 +11,7 @@ if (!isset($_SESSION['usuarioDAW209AppLOginLogoff'])) {
     //si no tenemos permiso para entrar nos redirige al login
     header('Location: login.php');
     die();
-} else {//si existe la sesion mostramos los datos del usuario.
+} 
     require '../core/validacionFormularios.php'; //importamos la libreria de validacion  
     require '../config/constantes.php'; //requerimos las constantes para la conexion
     require '../config/cabeceraUlUsuario.php';
@@ -89,7 +89,6 @@ if (!isset($_SESSION['usuarioDAW209AppLOginLogoff'])) {
             echo '<h2 style="color: red;">No coinciden las password, vuelva a introducirlas <br>hasta que coincidan</h2>';
         }
     }
-}
 ?> 
 <!DOCTYPE html>
 <html>
@@ -151,7 +150,7 @@ if (!isset($_SESSION['usuarioDAW209AppLOginLogoff'])) {
         </main>
         <footer class="page-footer font-small blue load-hidden">
             <div class="footer-copyright text-center py-3"> <a href="../../../index.php">© 2019 Copyright: Ismael Heras Salvador</a> 
-                <a class="volver" href="borrarSesion.php">Salir Aplicacion</a>
+                <a class="volver" href="editarPerfil.php">Volver</a>
             </div>
         </footer> 
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
