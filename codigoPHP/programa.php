@@ -1,47 +1,25 @@
 <?php
-//iniciamos sesion
+//iniciamos sesion o la mantenemos.
 session_start();
-require '../config/cabeceraUlprograma.php';
-//estructura de control que nos permite controlar que si alguien quiere entrar directamente a el contenido no
+
+if (!isset($_SESSION['usuarioDAW209AppLOginLogoff'])) {//estructura de control que nos permite controlar que si alguien quiere entrar directamente a el contenido no
 //puede por que no se ha logeado y por lo tanto la variable de sesion de clave de usuario no existe
-if (!isset($_SESSION['usuarioDAW209AppLOginLogoff'])) {
-    //si no tenemos permiso para entrar nos redirige al login
-    header('Location: login.php');
+    header('Location: ../login.php');//si no tenemos permiso para entrar nos redirige al login
     die();
 }
-    //almacenamos en una variable la sesion.
-    $sesion = $_SESSION['usuarioDAW209AppLOginLogoff'];
-    //estructura de control para sacar por pantalla dependiendo del idioma que allamos elegido.
-    if (isset($_COOKIE['idioma']) && $_COOKIE['idioma'] == "Español") {
-        echo '<h1 style="color:green;">'."Bienvenido  $sesion  estas logeado en Español".'</h1>'; //si no existe la cooki lo mostramos en español por defecto       
-    }
-    if (isset($_COOKIE['idioma']) && $_COOKIE['idioma'] == "Ingles") {
-        echo '<h1 style="color:green;">'."Welcome  $sesion  You are logged in English".'</h1>';
-    } if (isset($_COOKIE['idioma']) && $_COOKIE['idioma'] == "Frances") {
-         echo '<h1 style="color:green;">'."Bienvenue  $sesion  Vous êtes connecté en Français".'</h1>';
-    }if (isset($_COOKIE['idioma']) && $_COOKIE['idioma'] == "Chino") {
-         echo '<h1 style="color:green;">'."欢迎你  $sesion  您用中文登录".'</h1>';
-    }
-    
-   
-    echo "<br>";
-     //muestra por pantalla los datos que queramos del la sesion del usuario.
-    echo "<h2>Tu rol o perfil es:<br></h2>";
-    if ($_SESSION['perfil'] == 'usuario') {
-        echo '<p>Al tener un rol de usuario solo tienes acceso a cambiar tu perfil y borrar la cuenta <a href="editarPerfil.php">Ir a Editar Perfil</a></p>';
-    } else {
-        echo '<p>Al tener un rol de administrador tienes todas las funcionalidades de mantenimiento usuarios y departamentos</p>';
-        echo '<div>';
-       echo '<a  href="mantenimientoUsuarios.php">Ir a MantenimientoUsuarios</a>';
-       echo '<br>';
-        echo '</div>';
-    }
-    echo "<br>";
-    echo "<p>La fecha y Hora de la ultima conexion es:" . '<b>' . $_SESSION['ultimaConexion'], "<p>";
-    echo '<br>';
-    echo "<p>El numero de Conexiones es :" . '<b>' . $_SESSION['numeroConexiones'], "</p>";
 
-?> 
+if(isset($_POST['cerrar'])){ //si pulsamos el boton de cerrar sesion destruye la sesion y nos redirige al login
+    session_destroy();//destruye la sesion
+    header('Location: ../login.php');//nos redirige al login
+    die();   
+}
+
+if(isset($_POST['detalle'])){//si pulsamos detalle nos lleva al detalle 
+    header('Location: detalle.php');//nos redirige al detalle
+    die();   
+}  
+  
+    ?> 
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -52,19 +30,45 @@ if (!isset($_SESSION['usuarioDAW209AppLOginLogoff'])) {
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
     <header> 
+       <?php require '../config/cabeceraUlprograma.php';?>
     </header>
     <body>
         <main>
+             <?php
+             
+    echo "<br>";
+      
+    if (isset($_COOKIE['idioma']) && $_COOKIE['idioma'] == "castellano") {//estructura de control para sacar por pantalla dependiendo del idioma que allamos elegido.
+        echo '<h1 style="color:green;">'."Bienvenido"." ".$_SESSION['usuarioDAW209AppLOginLogoff']." "."estas logeado en Castellano".'</h1>'; //si no existe la cooki lo mostramos en español por defecto       
+    }
+    if (isset($_COOKIE['idioma']) && $_COOKIE['idioma'] == "english") {
+        echo '<h1 style="color:green;">'."Welcome"." ".$_SESSION['usuarioDAW209AppLOginLogoff']." "."You are logged in English".'</h1>';//si no lo ponemos en ingles
+    }
+     //muestra por pantalla los datos que queramos del la sesion del usuario.
+    echo "<h2>Tu rol o perfil es:<br></h2>";
+    if ($_SESSION['perfilDAW209AppLOginLogoff'] == 'usuario') {
+        echo '<h3>'.$_SESSION['perfilDAW209AppLOginLogoff'].'</ph3';
+    } else {
+      echo '<h3>'.$_SESSION['perfilDAW209AppLOginLogoff'].'</h3>';
+    }
+    echo "<br>";
+    echo "<p>La fecha y Hora de la ultima conexion es:" . '<b>' . $_SESSION['ultimaConexion'], "<p>";
+    echo '<br>';
+    echo "<p>El numero de Conexiones es :" . '<b>' . $_SESSION['numeroConexiones'], "</p>";
+
+?> 
             <br>
-            <input type="button" class="btn btn-danger" value="Cerrar Sesion" onclick="location = 'borrarSesion.php'">
-            <input type="button" class="btn btn-warning" value="Detalle" onclick="location = 'detalle.php'">
+            <form action="<?php echo 'programa.php' ?>" method="post">
+            <input type="submit" class="btn btn-danger" value="Cerrar Sesion" name="cerrar">
+            <input type="submit" class="btn btn-warning" value="Detalle" name="detalle" >
+            </form>
             <br/>
             <br/>
         </main>
         <footer class="page-footer font-small blue load-hidden">
             <div class="footer-copyright text-center py-3"> <a href="../../../index.php">© 2019 Copyright: Ismael Heras Salvador</a> 
-                <a href="http://daw-usgit.sauces.local/heras/ProyectoLoginLogoff/tree/developer"><img  src="../img/gitLab.png" alt=""></a>
-                <a href="https://github.com/ismaelom83/proyectoLoginLogoff"><img  src="../img/gitHub.png" alt=""></a>
+                <a href="http://daw-usgit.sauces.local/heras/ProyectoLoginLogoff/tree/developer"><img  src="../WEBBROOT/img/gitLab.png" alt="GitLab"></a>
+                <a href="https://github.com/ismaelom83/proyectoLoginLogoff"><img  src="../WEBBROOT/img/gitHub.png" alt="GitHub"></a>
             </div>               
         </footer> 
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

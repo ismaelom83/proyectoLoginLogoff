@@ -4,58 +4,39 @@
   @author Ismael Heras Salvador
   @since 28/11/2019
  */
-
-require '../core/validacionFormularios.php'; //importamos la libreria de validacion  
-require '../config/constantes.php'; //requerimos las constantes para la conexion
-require '../config/cabeceraUl.php';
+require 'core/validacionFormularios.php'; //importamos la libreria de validacion  
+require 'config/constantes.php'; //requerimos las constantes para la conexion
 define('OBLIGATORIO', 1); //constante que define que un campo es obligatorio.
 define('NOOBLIGATORIO', 0); //constante que define que un campo NO es obligatorio.
 //manejo de las variables del formulario
 $aFormulario = ['usuario' => null,
     'password' => null];
 
+//----------------------cookies-------------------------------------------------
+
 //si no existe la cookie la creamos en español por defecto.
-if (!isset($_COOKIE['idioma'])) {
-    $lang = "Español";
+if (!isset($_COOKIE['idioma'])){
+    $lang = "castellano";
     setcookie('idioma', $lang, time() + 60 * 60 * 24 * 30);
     header("Location: login.php");
 }
 //ponemos el valor a la cookie dependiendo del idioma que hemos introducido.
-if (isset($_POST["lang"])) {
-    $lang = $_POST["lang"];
-    setcookie('idioma', $lang, time() + 60 * 60 * 24 * 30);
-    header("Location: login.php");
-}
-
-//estructura de control para sacar por pantalla dependiendo del idioma que allamos elegido.
-if (isset($_COOKIE['idioma']) && $_COOKIE['idioma'] == "Español") {
-    echo '<h1 class="login"><b>Login</b></h1>';
-    echo '<h3>Ir a <a href="registro.php"><b>Registro</b></a></h3><br>';
-}
-if (isset($_COOKIE['idioma']) && $_COOKIE['idioma'] == "Ingles") {
-    echo '<h1 class="login"><b>Log In</b></h1>';
-    echo '<h3>Go To <a href="registro.php"><b>Register</b></a></h3><br>';
-} if (isset($_COOKIE['idioma']) && $_COOKIE['idioma'] == "Frances") {
-    echo '<h1 class="login"><b>Connecté</b></h1>';
-    echo '<h3>Aller à <a href="registro.php"><b>Inscription</b></a></h3><br>';
-}if (isset($_COOKIE['idioma']) && $_COOKIE['idioma'] == "Chino") {
-    echo '<h1 class="login"><b>登入</b></h1>';
-    echo '<h3>去 <a href="registro.php"><b> 登记</b></a></h3><br>';
-}
-
-if (isset($_POST['salir']) && $_POST['salir'] == 'Volver') {
-    header('Location: ../../proyectoTema5/tema5.php');
+if (isset($_GET["idioma"])) {
+    $lang = $_GET["idioma"];
+    setcookie('idioma', $lang, time() + 60 * 60 * 24 * 30);//creamos la cooki con una duracionde 30 dias
+    header("Location: login.php");//recargamos la pagina.
 }
 
 
+if (isset($_POST['salir'])) {//si pulsamos volver nos devuelve al protecto tema5
+    header('Location: ../proyectoTema5/tema5.php');
+    die();
+}
 if (isset($_POST['entrar']) && $_POST['entrar'] == 'Entrar') {
 
     //el valor del array ahora es igual al de los campos recogidos en el formulario.
     $usuario = $aFormulario['usuario'] = $_POST['usuario'];
     $passwd = $aFormulario['password'] = $_POST['password'];
-
-    //si no estan los dos campos rellenos no los manda
-} if (!empty($_POST['usuario']) && !empty($_POST['password'])) {
 
     try {
         //conexion a la base de datos.
@@ -90,31 +71,27 @@ if (isset($_POST['entrar']) && $_POST['entrar'] == 'Entrar') {
             session_start();
             //almacenamos en la sesion los campos que queramos mostrar de la base de datos del usuario
             $_SESSION['usuarioDAW209AppLOginLogoff'] = $resultado['CodUsuario'];
-            $_SESSION['descripcion'] = $resultado['DescUsuario'];
-            $_SESSION['passwordSinCifrar'] = $_POST['password'];
-            $_SESSION['perfil'] = $resultado['Perfil'];
+            $_SESSION['descripcionDAW209AppLOginLogoff'] = $resultado['DescUsuario'];
+            $_SESSION['perfilDAW209AppLOginLogoff'] = $resultado['Perfil'];
             $_SESSION['numeroConexiones'] = $resultado['NumConexiones']+1;
             $_SESSION['ultimaConexion'] = $resultado['FechaHoraUltimaConexion'];
 
-                    
+
             //consulta preparada para poner la hora de la ultima conexion.
             $sql = "UPDATE Usuario SET FechaHoraUltimaConexion=NULL WHERE CodUsuario=:codUsuario";
-                    //guardamos en una variable la sentencia sql
-                    $oPDO = $miBD->prepare($sql);
-                    $oPDO->bindParam(":codUsuario", $_SESSION['usuarioDAW209AppLOginLogoff']);
-                    $oPDO->execute();
-                    //consulta preparada para saber el numero de conexiones y lo almacenamos en la base datos.
-                     $sql = "UPDATE Usuario SET NumConexiones=NumConexiones+1 WHERE CodUsuario=:codUsuario";
-                    //guardamos en una variable la sentencia sql
-                    $oPDO = $miBD->prepare($sql);
-                    $oPDO->bindParam(":codUsuario", $_SESSION['usuarioDAW209AppLOginLogoff']);
-                    $oPDO->execute();
+            //guardamos en una variable la sentencia sql
+            $oPDO = $miBD->prepare($sql);
+            $oPDO->bindParam(":codUsuario", $_SESSION['usuarioDAW209AppLOginLogoff']);
+            $oPDO->execute();
+            //consulta preparada para saber el numero de conexiones y lo almacenamos en la base datos.
+            $sql = "UPDATE Usuario SET NumConexiones=NumConexiones+1 WHERE CodUsuario=:codUsuario";
+            //guardamos en una variable la sentencia sql
+            $oPDO = $miBD->prepare($sql);
+            $oPDO->bindParam(":codUsuario", $_SESSION['usuarioDAW209AppLOginLogoff']);
+            $oPDO->execute();
             //con header nos redirreciona a programa.php        
-            header('Location: programa.php');
-        } else {
-
-            echo '<p class="login-error">Usuario o Password Incorrectos</p><br>';
-        }
+            header('Location: codigoPHP/programa.php');
+        } 
         //cath que se ejecuta si habido un error
     } catch (PDOException $excepcion) {
         echo "<h1>Se ha producido un error</h1>";
@@ -132,15 +109,58 @@ if (isset($_POST['entrar']) && $_POST['entrar'] == 'Entrar') {
         <title>Login</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="../WEBBROOT/css/estilosEjer.css">
+        <link rel="stylesheet" href="WEBBROOT/css/estilosEjer.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
     <header>
+        <nav class="navbar navbar-expand-sm navbar-light load-hidden"  style="background-color: #e3f2fd;">
 
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="../../../index.php">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../../proyectoDWES/DWES.php">DWES</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../../proyectoDWEC/DWEC.php">DWEC</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../../proyectoDAW/DAW.php">DA</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../../proyectoDIW/DIW.php">DIW</a>
+                    </li>  
+                    <li class="nav-item">
+                        <a href="<?php echo $_SERVER['PHP_SELF'] ?>?idioma=english"><img src="WEBBROOT/img/eng.jpg" alt="English"></a>
+                        <a href="<?php echo $_SERVER['PHP_SELF'] ?>?idioma=castellano"><img src="WEBBROOT/img/esp_1.jpg" alt="Castellano"></a>
+                    </li>
+
+                </ul >
+            </div>
+        </nav>            
     </header>
     <body>
         <main> 
+            <?php
+            //estructura de control para sacar por pantalla dependiendo del idioma que allamos elegido.
+            if (isset($_COOKIE['idioma']) && $_COOKIE['idioma'] == "castellano") {
+                echo '<h1 class="login"><b>Inicio Sesion</b></h1>';
+                
+            }
+            if (isset($_COOKIE['idioma']) && $_COOKIE['idioma'] == "english") {
+                echo '<h1 class="login"><b>Log In</b></h1>';
+              
+            }
 
+            if (isset($_POST['salir']) && $_POST['salir'] == 'Volver') {
+                header('Location: ../../proyectoTema5/tema5.php');
+            }
+            if(isset($_POST['entrar']) && $_POST['entrar'] == 'Entrar'){
+                echo '<p class="login-error">Usuario o Password Incorrectos</p><br>';
+            }
+            ?>
             <div class="wrap">
                 <form action="" method="post">
                     <fieldset>
@@ -171,9 +191,9 @@ if (isset($_POST['entrar']) && $_POST['entrar'] == 'Entrar') {
         </main>
         <footer class="page-footer font-small blue load-hidden">
             <div class="footer-copyright text-center py-3"> <a href="../../../index.php">© 2019 Copyright: Ismael Heras Salvador</a> 
-                <a href="http://daw-usgit.sauces.local/heras/ProyectoLoginLogoff/tree/developer"><img  src="../img/gitLab.png" alt=""></a>
-                <a href="https://github.com/ismaelom83/proyectoLoginLogoff"><img  src="../img/gitHub.png" alt=""></a>
-                <a href="../../proyectoTema5/tema5.php">Salir De La Aplicacion</a> 
+                <a href="http://daw-usgit.sauces.local/heras/ProyectoLoginLogoff/tree/developer"><img  src="WEBBROOT/img/gitLab.png" alt=GitLab""></a>
+                <a href="https://github.com/ismaelom83/proyectoLoginLogoff"><img  src="WEBBROOT/img/gitHub.png" alt="GitHub"></a>
+                <a href="../proyectoTema5/tema5.php">Salir De La Aplicacion</a> 
             </div>
         </footer> 
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

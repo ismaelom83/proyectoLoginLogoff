@@ -19,11 +19,6 @@
             <li class="nav-item">
                 <a class="nav-link" href="../../../proyectoDIW/DIW.php">DIW</a>
             </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="../codigoPHP/borrarSesion.php">Cerrar Sesion</a>
-            </li>           
-
         </ul >
     </div>
 </nav>
