@@ -5,18 +5,18 @@ session_start();
 if (!isset($_SESSION['usuarioDAW209AppLOginLogoff'])) {//estructura de control que nos permite controlar que si alguien quiere entrar directamente a el contenido no
 //puede por que no se ha logeado y por lo tanto la variable de sesion de clave de usuario no existe
     header('Location: ../login.php'); //si no tenemos permiso para entrar nos redirige al login
-    die();
+    die();//con die() terminamos inmediatamente la ejecución del script, evitando que se envíe más salida al cliente.
 }
 
 if (isset($_POST['cerrar'])) { //si pulsamos el boton de cerrar sesion destruye la sesion y nos redirige al login
     session_destroy(); //destruye la sesion
     header('Location: ../login.php'); //nos redirige al login
-    die();
+    die();//con die() terminamos inmediatamente la ejecución del script, evitando que se envíe más salida al cliente.
 }
 
 if (isset($_POST['detalle'])) {//si pulsamos detalle nos lleva al detalle 
     header('Location: detalle.php'); //nos redirige al detalle
-    die();
+    die();//con die() terminamos inmediatamente la ejecución del script, evitando que se envíe más salida al cliente.
 }
 ?> 
 <!DOCTYPE html>

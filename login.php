@@ -75,14 +75,7 @@ if (isset($_POST['entrar']) && $_POST['entrar'] == 'Entrar') {
             $_SESSION['numeroConexiones'] = $resultado['NumConexiones'] + 1;
             
             if ($_SESSION['numeroConexiones'] > 1) {//si el numero de conexiones es mayor de una entonces mostraremos la hora de la ultima conexion si no no podriamos al ser la primera
-                $_SESSION['ultimaConexion'] = $resultado['FechaHoraUltimaConexion'];
-                //consulta preparada para poner la hora de la ultima conexion.
-                    //consulta preparada para poner la hora de la ultima conexion.
-                    $sql = "UPDATE Usuario SET FechaHoraUltimaConexion=NULL WHERE CodUsuario=:codUsuario";
-                    //guardamos en una variable la sentencia sql
-                    $oPDO = $miBD->prepare($sql);
-                    $oPDO->bindParam(":codUsuario", $_SESSION['usuarioDAW209AppLOginLogoff']);
-                    $oPDO->execute();         
+                $_SESSION['ultimaConexion'] = $resultado['FechaHoraUltimaConexion'];        
             }
             //consulta preparada para saber el numero de conexiones y lo almacenamos en la base datos.
             $sql = "UPDATE Usuario SET NumConexiones=NumConexiones+1 WHERE CodUsuario=:codUsuario";
