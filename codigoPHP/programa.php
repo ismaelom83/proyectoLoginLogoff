@@ -29,16 +29,16 @@ if (isset($_POST['detalle'])) {//si pulsamos detalle nos lleva al detalle
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
     <header> 
-        <?php require '../config/cabeceraUlprograma.php'; ?>
+        <?php require '../include/config/cabecera.php'; ?>
     </header>
     <body>
         <main>
             <?php
             echo "<br>";
             if (isset($_COOKIE['idioma']) && $_COOKIE['idioma'] == "castellano") {//estructura de control para sacar por pantalla dependiendo del idioma que allamos elegido.
-                echo '<h1 style="color:green;">' . "Bienvenido" . " " . $_SESSION['usuarioDAW209AppLOginLogoff'] . " " . "estas logeado en Castellano" . '</h1>'; //si no existe la cooki lo mostramos en español por defecto       
+                echo '<h1 style="color:green;">' . "Bienvenido" . " " . $_SESSION['descripcionDAW209AppLOginLogoff'] . " " . "estas logeado en Castellano" . '</h1>'; //si no existe la cooki lo mostramos en español por defecto       
             } else {
-                echo '<h1 style="color:green;">' . "Welcome" . " " . $_SESSION['usuarioDAW209AppLOginLogoff'] . " " . "You are logged in English" . '</h1>'; //si no lo ponemos en ingles
+                echo '<h1 style="color:green;">' . "Welcome" . " " . $_SESSION['descripcionDAW209AppLOginLogoff'] . " " . "You are logged in English" . '</h1>'; //si no lo ponemos en ingles
             }
             //muestra por pantalla los datos que queramos del la sesion del usuario.
             if ($_SESSION['perfilDAW209AppLOginLogoff'] == 'usuario') {
@@ -53,11 +53,11 @@ if (isset($_POST['detalle'])) {//si pulsamos detalle nos lleva al detalle
             //estructura de control que nos indica que si es la primera conexion nos mostrara un mesaje y no mostrara la fecha de la ultica
             //conexion pero si no es la primera si nos muestra que numero de veces nos hemos conectado y la fecha de la ultima conexion. 
             if ($_SESSION['numeroConexiones'] == 1) {
-                echo "<h3>" . $_SESSION['usuarioDAW209AppLOginLogoff'] . ' Esta es la primera vez que te conectas' .'<br>'. 'No tienes fecha de ultima conexion'."</h3>";
+                echo "<h3>" . $_SESSION['descripcionDAW209AppLOginLogoff'] . ' Esta es la primera vez que te conectas'."</h3>";
             } else {
-                echo "<p>" . $_SESSION['usuarioDAW209AppLOginLogoff'] . " Esta es la " . '<b>' . $_SESSION['numeroConexiones'] . "º vez que te conectas" . "</p>";
+                echo "<p>" . $_SESSION['descripcionDAW209AppLOginLogoff'] . " Esta es la " . '<b>' . $_SESSION['numeroConexiones'] . "º vez que te conectas" . "</p>";
                 echo "<br>";
-                echo "<p>La fecha y Hora de la ultima conexion es:" . '<b>' . $_SESSION['ultimaConexion'], "<p>";
+                echo "<p>La Ultima vez que te conectaste fue el : " . '<b>' . $_SESSION['ultimaConexion'], "<p>";
             }
             ?> 
             <br>

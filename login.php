@@ -5,7 +5,7 @@
   @since 28/11/2019
  */
 require 'core/validacionFormularios.php'; //importamos la libreria de validacion  
-require 'config/constantes.php'; //requerimos las constantes para la conexion
+require 'include/config/constantes.php'; //requerimos las constantes para la conexion
 define('OBLIGATORIO', 1); //constante que define que un campo es obligatorio.
 define('NOOBLIGATORIO', 0); //constante que define que un campo NO es obligatorio.
 //manejo de las variables del formulario
