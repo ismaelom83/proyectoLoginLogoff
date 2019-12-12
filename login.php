@@ -31,6 +31,7 @@ if (isset($_POST['salir'])) {//si pulsamos volver nos devuelve al protecto tema5
     header('Location: ../proyectoTema5/tema5.php');
     die();
 }
+//si pulsamos entrar entra en el if.
 if (isset($_POST['entrar']) && $_POST['entrar'] == 'Entrar') {
 
     //el valor del array ahora es igual al de los campos recogidos en el formulario.
