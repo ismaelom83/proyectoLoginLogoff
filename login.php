@@ -121,7 +121,7 @@ if (isset($_POST['entrar']) && $_POST['entrar'] == 'Entrar') {
                         <a class="nav-link" href="../../../proyectoDWEC/DWEC.php">DWEC</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../../../proyectoDAW/DAW.php">DA</a>
+                        <a class="nav-link" href="../../../proyectoDAW/DAW.php">DAW</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="../../../proyectoDIW/DIW.php">DIW</a>
